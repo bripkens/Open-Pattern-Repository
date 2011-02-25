@@ -73,7 +73,17 @@ class PatternHandler(BaseHandler):
     model = Pattern
     fields = ('id', 'name', 'wiki_name', 'tags', 'categories', ('versions', (
     'source', 'author', 'documented_when', 'license', 'template',
-    ('description', ('text', ('component', ('name', 'sort_order')))))))
+    ('drivers', (
+    'id', 'description', 'type',
+    ('quality_attribute', ('id', 'name', 'description')),
+    'impact')),
+    ('description', ('text', ('component', ('name', 'sort_order')))))),
+              ('outgoing_relationships', (
+              ('target', ('id', 'name')), 'description',
+              ('type', ('id', 'name')))),
+    ('incoming_relationships', (
+              ('source', ('id', 'name')), 'description',
+              ('type', ('id', 'name')))))
 
     def read(self, request, id=None):
         """Retrieve one or more patterns
@@ -97,7 +107,8 @@ class PatternVersionHandler(BaseHandler):
     """
 
     model = PatternVersion
-    fields = ('source', 'author', 'documented_when', 'license', 'template')
+    fields = ('source', 'author', 'documented_when', 'license', 'template',
+              ('drivers', ('id', 'type', 'quality_attribute', 'impact')))
 
 class CategoryHandler(BaseHandler):
     """For now just a definition of the data that will be published

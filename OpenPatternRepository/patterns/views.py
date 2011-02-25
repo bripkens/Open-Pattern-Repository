@@ -97,7 +97,7 @@ def get_template(request, mainForm):
 
     return template
 
-def save_new_pattern(mainForm, driverForm, relationshipForm,
+def save_new_pattern(mainForm, driverFormSet, relationshipFormSet,
                              templateRelatedForm):
     """Save a pattern to the database
 
@@ -124,6 +124,7 @@ def save_new_pattern(mainForm, driverForm, relationshipForm,
 
     v.save()
 
+    # textual description
     for component in v.template.components.all():
         block = TextBlock()
         block.component = component
@@ -133,6 +134,25 @@ def save_new_pattern(mainForm, driverForm, relationshipForm,
 
         block.save()
 
+    # driver
+    for driverForm in driverFormSet.cleaned_data:
+        driver = Driver()
+        driver.pattern = v
+        driver.impact = driverForm['impact']
+        driver.quality_attribute = driverForm['quality_attribute']
+        driver.type = driverForm['type']
+        driver.description = driverForm['description']
+        driver.save()
+
+    # relationships
+    for relationshipForm in relationshipFormSet.cleaned_data:
+        relationship= Relationship()
+        relationship.source = p
+        relationship.target = relationshipForm['target']
+        relationship.description = relationshipForm['description']
+        relationship.type = relationshipForm['type']
+        relationship.save()
+        
 def propose_tags(request, query=""):
     """Propose some tags to the user.
 
