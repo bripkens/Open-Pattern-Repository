@@ -51,10 +51,14 @@ class Category(models.Model):
     # blank and null are set to True to make this foreign key optional
     # TODO: Don't allow self references
     parent_category = models.ForeignKey('self', blank=True, null=True,
-                                       related_name='children')
+                                        related_name='children')
 
     def __unicode__(self):
         return self.name
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('view_category', [str(self.id)])
 
     class Meta:
         verbose_name_plural = 'Categories'
@@ -88,11 +92,11 @@ class QualityAttribute(models.Model):
         return self.name
 
 DRIVER_CHOICES = (
-        ('f', 'Force'),
-        ('c', 'Consequence')
+('f', 'Force'),
+('c', 'Consequence')
 )
 
-IMPACT_CHOICES = zip(range(1,11),
+IMPACT_CHOICES = zip(range(1, 11),
                      ("1 (weak impact)", 2, 3, 4, 5, 6, 7, 8, 9,
                       "10 (strong impact)"))
 
@@ -170,7 +174,7 @@ class Pattern(models.Model):
 
     name = models.CharField(max_length=100, unique=True)
 
-    wiki_name = models.CharField(max_length=100, unique=True)
+    wiki_name = models.SlugField(max_length=100, unique=True)
 
     categories = models.ManyToManyField(Category, related_name='patterns',
                                         blank=True, null=True)
@@ -178,7 +182,12 @@ class Pattern(models.Model):
     tags = TagField()
 
     def get_tags(self):
-        return Tag.objects.get_for_object(self) 
+        return Tag.objects.get_for_object(self)
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('view_pattern', None, {
+            'name': self.name})
 
     def __unicode__(self):
         return self.name
@@ -201,7 +210,8 @@ class PatternVersion(models.Model):
     template = models.ForeignKey(Template)
 
     def __unicode__(self):
-        return ''.join((self.pattern.name, '; Version: ', self.documented_when))
+        return ''.join(
+                (self.pattern.name, '; Version: ', self.documented_when))
 
 class Relationship(models.Model):
     """A relationship between two patterns

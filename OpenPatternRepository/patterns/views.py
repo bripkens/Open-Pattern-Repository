@@ -24,13 +24,13 @@ from forms import TemplateRelatedForm
 from models import *
 from tagging.models import Tag
 from django.core.context_processors import csrf
-from django import forms
 from django.utils.datastructures import MultiValueDictKeyError
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.http import HttpResponseBadRequest
 from django.utils import simplejson
 from django.shortcuts import render_to_response
+from django.shortcuts import get_object_or_404
 
 def add_pattern(request):
     """Add a pattern view.
@@ -43,7 +43,8 @@ def add_pattern(request):
         relationshipForm = RelationshipFormSet(request.POST, request.FILES,
                                                prefix='relationships')
         template = get_template(request, mainForm)
-        templateRelatedForm = TemplateRelatedForm(request.POST, template=template)
+        templateRelatedForm = TemplateRelatedForm(request.POST,
+                                                  template=template)
 
         if (mainForm.is_valid() and driverForm.is_valid() and
             relationshipForm.is_valid() and templateRelatedForm.is_valid()):
@@ -98,7 +99,7 @@ def get_template(request, mainForm):
     return template
 
 def save_new_pattern(mainForm, driverFormSet, relationshipFormSet,
-                             templateRelatedForm):
+                     templateRelatedForm):
     """Save a pattern to the database
 
     This function is only useful for the add pattern view and should not be
@@ -136,23 +137,31 @@ def save_new_pattern(mainForm, driverFormSet, relationshipFormSet,
 
     # driver
     for driverForm in driverFormSet.cleaned_data:
-        driver = Driver()
-        driver.pattern = v
-        driver.impact = driverForm['impact']
-        driver.quality_attribute = driverForm['quality_attribute']
-        driver.type = driverForm['type']
-        driver.description = driverForm['description']
-        driver.save()
+        # a simple check that verifies that data has been entered into
+        # this form. There should be another way to handle this case!
+        # TODO find a better solution
+        if not driverForm.get('quality_attribute') == None:
+            driver = Driver()
+            driver.pattern = v
+            driver.impact = driverForm['impact']
+            driver.quality_attribute = driverForm['quality_attribute']
+            driver.type = driverForm['type']
+            driver.description = driverForm['description']
+            driver.save()
 
     # relationships
     for relationshipForm in relationshipFormSet.cleaned_data:
-        relationship= Relationship()
-        relationship.source = p
-        relationship.target = relationshipForm['target']
-        relationship.description = relationshipForm['description']
-        relationship.type = relationshipForm['type']
-        relationship.save()
-        
+        # a simple check that verifies that data has been entered into
+        # this form. There should be another way to handle this case!
+        # TODO find a better solution
+        if not relationshipForm.get('target') == None:
+            relationship = Relationship()
+            relationship.source = p
+            relationship.target = relationshipForm['target']
+            relationship.description = relationshipForm['description']
+            relationship.type = relationshipForm['type']
+            relationship.save()
+
 def propose_tags(request, query=""):
     """Propose some tags to the user.
 
@@ -168,7 +177,6 @@ def propose_tags(request, query=""):
     query_result = Tag.objects.filter(name__icontains=query)
     json = simplejson.dumps([tag.name for tag in query_result])
     return HttpResponse(json, 'application/json')
-
 
 def preview_markdown(request):
     """Provide a request parameter called data which should be run through
@@ -189,3 +197,58 @@ def preview_markdown(request):
     return render_to_response('patterns/markdown_preview.html', {
         'markdown': markdown
         })
+
+def browse_categories(request, categoryName=None):
+    """Provide a category view for a categories or just a specific one
+
+    """
+    # TODO when the system is growing it would be more appropriate to serve
+    # only parts of the hierarchy (performance reasons)
+
+    if not categoryName == None:
+        try:
+            allCategories = Category.objects.get(name__iexact=categoryName)
+            allCategories = [allCategories]
+        except Category.DoesNotExist:
+            allCategories = None
+
+    if allCategories == None:
+        allCategories = Category.objects.filter(parent_category=None)
+
+    # we want to use the django unordered list filter hence we must adhere to
+    # the required data structure
+    result = []
+
+    for category in allCategories:
+        add_category(category, result)
+
+    return render_to_response('patterns/browse_patterns.html', {
+        'data': result
+        })
+
+def add_category(category, result):
+    """Recursive method that is used to generate a hierachiral category list
+
+    """
+    categoryList = []
+
+    for child_category in category.children.all():
+        add_category(child_category, categoryList)
+
+    for pattern in category.patterns.all():
+        patternLink = ''.join(['<a href="', pattern.get_absolute_url(),
+                               '" title="Get more information about this pattern">'
+                               , pattern.name, '</a>'])
+        categoryList.append(patternLink)
+
+    result.append(category)
+    result.append(categoryList)
+
+def view_pattern(request, name):
+    """View details for a given pattern.
+
+    TODO what about a generic view for this?
+
+    """
+    pattern = get_object_or_404(Pattern, name__iexact=name)
+    return HttpResponse(pattern.name)

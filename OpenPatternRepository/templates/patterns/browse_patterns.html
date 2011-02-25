@@ -1,0 +1,13 @@
+{% extends "patterns/template.html" %}
+
+{% block title %}Browse patterns{% endblock %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block content %}
+<ul>
+    {{ data|unordered_list }}
+</ul>
+{% endblock %}
