@@ -226,28 +226,38 @@ def browse_categories(request, categoryName=None):
         'data': result
         })
 
-def add_category(category, result):
+def add_category(category, list):
     """Recursive method that is used to generate a hierachiral category list
 
     """
-    categoryList = []
 
-    for child_category in category.children.all():
-        add_category(child_category, categoryList)
+    list.append(category)
 
-    for pattern in category.patterns.all():
-        patternLink = ''.join(['<a href="', pattern.get_absolute_url(),
-                               '" title="Get more information about this pattern">'
-                               , pattern.name, '</a>'])
-        categoryList.append(patternLink)
+    child_categories = category.children.all()
+    patterns = category.patterns.all()
 
-    result.append(category)
-    result.append(categoryList)
+    if len(child_categories) > 0 or len(patterns) > 0:
+        # category names are trimmed. Therefore using whitespace as the first
+        # and last character is save for distinction between marker and entry
+        list.append(' sub start ')
+
+    for child_category in child_categories:
+        add_category(child_category, list)
+
+    for pattern in patterns:
+        list.append(pattern)
+
+    if len(child_categories) > 0 or len(patterns) > 0:
+        list.append(' sub end ')
+
+    list.append(' row end ')
 
 def view_pattern(request, name):
     """View details for a given pattern.
 
     TODO what about a generic view for this?
+    A generic view may not be appropriate as the newest version needs to be
+    determined
 
     """
     pattern = get_object_or_404(Pattern, name__iexact=name)

@@ -59,6 +59,9 @@ $(function() {
 
     // reload tags after server side validation error
     var tagOut = $("#id_tags");
+    if (tagOut.length == 0) {
+        return;
+    }
     var allTags = tagOut.val().trim().split(' ');
 
     for (var i = 0; i < allTags.length; i++) {
@@ -156,6 +159,7 @@ opr.managePattern.containsTag = function(tag) {
  ::: Manage pattern select / change template
  ############################################################################*/
 $(function() {
+    // TODO only apply this when the user is on the manage pattern page
     $("#change_template").click(opr.managePattern.changeTemplate);
 
     $(".textual_description_box .description textarea").markItUp(mySettings);

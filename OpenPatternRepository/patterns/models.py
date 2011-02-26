@@ -58,7 +58,9 @@ class Category(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('view_category', [str(self.id)])
+        return ('browse_categories', (), {
+            'categoryName' : self.name
+        })
 
     class Meta:
         verbose_name_plural = 'Categories'

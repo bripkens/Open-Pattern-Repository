@@ -23,7 +23,8 @@ from patterns.views import *
 
 urlpatterns = patterns('patterns.views',
                        (r'^pattern/add/$', 'add_pattern'),
-                       (r'^browse/(?P<categoryName>.*)$', browse_categories),
+                       url(r'^browse/(?P<categoryName>.*)$', browse_categories,
+                           name='browse_categories'),
                        url(r'^patterns/(?P<name>.*)/$', view_pattern,
                            name='view_pattern'),
                        (r'^suggest/tag/(?P<query>.+)$', propose_tags),
