@@ -1,5 +1,7 @@
 {% extends "patterns/template.html" %}
 
+{% load tagging_tags %}
+
 {% block title %}Browse patterns{% endblock %}
 
 {% block head %}
@@ -7,6 +9,7 @@
 {% endblock %}
 
 {% block content %}
+    <h1>Categories</h1>
     <ul class="hierarchal">
         {% for row in data %}
             {% if row  == ' sub start ' %}
@@ -27,4 +30,11 @@
             {% endif %}
         {% endfor %}
     </ul>
+
+    <h1>Tags</h1>
+
+    {% tag_cloud_for_model patterns.Pattern as tags with steps=6 min_count=1 distribution=log %}
+    {% for tag in tags %}
+        <span class="tag-{{tag.font_size}}"><a href="/tag/{{tag.name|slugify}}/">{{tag.name}}</a></span>
+    {% endfor %}
 {% endblock %}

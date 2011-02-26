@@ -1,0 +1,25 @@
+{% extends "patterns/template.html" %}
+
+{% load tagging_tags %}
+
+{% block title %}Patterns tagged with {{ tag }}{% endblock %}
+
+{% block content %}
+    <h1>Tag Search</h1>
+    <p>You searched the patterns for the tag
+        <span class="highlight">{{ tag }}</span>.</p>
+    {% if entries %}
+        <ul>
+            {% for entry in entries %}
+                <li>
+                    <a href="{{ entry.get_absolute_url }}"
+                        title="Navigate to the detail view of this pattern">
+                        {{ entry.name }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No articles have that tag</p>
+    {% endif %}
+{% endblock %}

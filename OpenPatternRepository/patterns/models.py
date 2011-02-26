@@ -186,6 +186,9 @@ class Pattern(models.Model):
     def get_tags(self):
         return Tag.objects.get_for_object(self)
 
+    def get_current_version(self):
+        return self.versions.order_by('documented_when')[0:1].get()
+
     @models.permalink
     def get_absolute_url(self):
         return ('view_pattern', None, {
@@ -213,7 +216,7 @@ class PatternVersion(models.Model):
 
     def __unicode__(self):
         return ''.join(
-                (self.pattern.name, '; Version: ', self.documented_when))
+                (self.pattern.name, '; Version: ', str(self.documented_when)))
 
 class Relationship(models.Model):
     """A relationship between two patterns

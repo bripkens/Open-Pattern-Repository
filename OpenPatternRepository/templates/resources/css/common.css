@@ -383,3 +383,29 @@ span.required {
 .box_relationships .entry {
     padding: 5px;
 }
+/*#############################################################################
+::: Tag cloud
+#############################################################################*/
+.tag-1 {
+    font-size: 12px;
+}
+
+.tag-2 {
+    font-size: 13px;
+}
+
+.tag-3 {
+    font-size: 14px;
+}
+
+.tag-4 {
+    font-size: 15px;
+}
+
+.tag-5 {
+    font-size: 16px;
+}
+
+.tag-6 {
+    font-size: 17px;
+}

@@ -22,7 +22,7 @@ from forms import DriverFormSet
 from forms import RelationshipFormSet
 from forms import TemplateRelatedForm
 from models import *
-from tagging.models import Tag
+from tagging.models import Tag, TaggedItem
 from django.core.context_processors import csrf
 from django.utils.datastructures import MultiValueDictKeyError
 from django.http import HttpResponse
@@ -115,6 +115,7 @@ def save_new_pattern(mainForm, driverFormSet, relationshipFormSet,
 
     p.categories = mainForm.cleaned_data['categories']
     p.tags = mainForm.cleaned_data['tags']
+    p.save()
 
     v = PatternVersion()
     v.license = mainForm.cleaned_data['license']
@@ -213,7 +214,8 @@ def browse_categories(request, categoryName=None):
             allCategories = None
 
     if allCategories == None:
-        allCategories = Category.objects.filter(parent_category=None)
+        allCategories = Category.objects.filter(parent_category=None).order_by(
+                'name').all()
 
     # we want to use the django unordered list filter hence we must adhere to
     # the required data structure
@@ -233,8 +235,8 @@ def add_category(category, list):
 
     list.append(category)
 
-    child_categories = category.children.all()
-    patterns = category.patterns.all()
+    child_categories = category.children.order_by('name').all()
+    patterns = category.patterns.order_by('name').all()
 
     if len(child_categories) > 0 or len(patterns) > 0:
         # category names are trimmed. Therefore using whitespace as the first
@@ -261,4 +263,18 @@ def view_pattern(request, name):
 
     """
     pattern = get_object_or_404(Pattern, name__iexact=name)
-    return HttpResponse(pattern.name)
+    version = pattern.get_current_version()
+    return HttpResponse(version)
+
+def with_tag(request, tag):
+    """Retrieve a list of patterns that have the given tag.
+
+    """
+    query_tag = Tag.objects.get(name=tag)
+    entries = TaggedItem.objects.get_by_model(Pattern, query_tag)
+    entries = entries.order_by('name')
+
+    return render_to_response("patterns/with_tag.html", {
+        'tag' : tag,
+        'entries' : entries
+    })
