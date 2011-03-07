@@ -18,16 +18,10 @@ __authors__ = [
 ]
 
 from django.conf.urls.defaults import patterns
-from django.conf.urls.defaults import url
-from patterns.views import *
+from administer.patterns.views import *
 
-urlpatterns = patterns('patterns.views',
+urlpatterns = patterns('administer.patterns.views',
                        (r'^pattern/add/$', 'add_pattern'),
-                       url(r'^browse/(?P<categoryName>.*)$', browse_categories,
-                           name='browse_categories'),
-                       (r'^tag/(?P<tag>[-_A-Za-z0-9]+)/$', with_tag),
-                       url(r'^patterns/(?P<name>.*)/$', view_pattern,
-                           name='view_pattern'),
                        (r'^suggest/tag/(?P<query>.+)$', propose_tags),
                        (r'^preview/markdown/', preview_markdown)
                        )

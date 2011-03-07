@@ -20,8 +20,13 @@ __authors__ = [
 from django import forms
 from django.forms.formsets import formset_factory
 from django.forms.models import fields_for_model
-from models import *
-from widgets import TreeCheckboxSelectMultiple
+from models.models import *
+from administer.patterns.widgets import TreeCheckboxSelectMultiple
+
+# activate ajax validation
+# TODO find a better place for this, e.g. external app
+from ajaxvalidation.fields import activate_javascript_validation_mandatories
+activate_javascript_validation_mandatories()
 
 class DynForm(forms.Form):
     def __init__(self, *args, **kwargs):
@@ -79,6 +84,11 @@ class ManagePatternForm(forms.Form):
 #                    classes += ' errors'
 #                    self.fields[f_name].widget.attrs['class'] = classes
 
+    def __init__(self, *args, **kwargs):
+        super(ManagePatternForm, self).__init__(*args, **kwargs)
+        root_categories = Category.objects.filter(parent_category=None)
+        self.fields['categories'].choices = root_categories
+
     _pattern_fields = fields_for_model(Pattern)
     name = _pattern_fields['name']
     name.widget.attrs.update({'autofocus': 'autofocus'})
@@ -86,7 +96,6 @@ class ManagePatternForm(forms.Form):
     permalink = _pattern_fields['wiki_name']
     categories = _pattern_fields['categories']
     categories.widget = TreeCheckboxSelectMultiple()
-    categories.choices = Category.objects.filter(parent_category=None)
 
     tags = _pattern_fields['tags']
 

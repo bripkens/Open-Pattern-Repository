@@ -18,7 +18,7 @@ __authors__ = [
 ]
 
 from piston.handler import BaseHandler
-from patterns.models import *
+from models.models import *
 from django.shortcuts import _get_queryset
 
 

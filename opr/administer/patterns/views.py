@@ -21,7 +21,7 @@ from forms import ManagePatternForm
 from forms import DriverFormSet
 from forms import RelationshipFormSet
 from forms import TemplateRelatedForm
-from models import *
+from models.models import *
 from tagging.models import Tag, TaggedItem
 from django.core.context_processors import csrf
 from django.utils.datastructures import MultiValueDictKeyError
@@ -48,9 +48,9 @@ def add_pattern(request):
 
         if (mainForm.is_valid() and driverForm.is_valid() and
             relationshipForm.is_valid() and templateRelatedForm.is_valid()):
-            save_new_pattern(mainForm, driverForm, relationshipForm,
+            p = save_new_pattern(mainForm, driverForm, relationshipForm,
                              templateRelatedForm)
-            return HttpResponseRedirect('/pattern/name')
+            return HttpResponseRedirect(p.get_absolute_url())
 
     else:
         mainForm = ManagePatternForm()
@@ -163,6 +163,8 @@ def save_new_pattern(mainForm, driverFormSet, relationshipFormSet,
             relationship.type = relationshipForm['type']
             relationship.save()
 
+    return p
+
 def propose_tags(request, query=""):
     """Propose some tags to the user.
 
@@ -198,83 +200,3 @@ def preview_markdown(request):
     return render_to_response('patterns/markdown_preview.html', {
         'markdown': markdown
         })
-
-def browse_categories(request, categoryName=None):
-    """Provide a category view for a categories or just a specific one
-
-    """
-    # TODO when the system is growing it would be more appropriate to serve
-    # only parts of the hierarchy (performance reasons)
-
-    if not categoryName == None:
-        try:
-            allCategories = Category.objects.get(name__iexact=categoryName)
-            allCategories = [allCategories]
-        except Category.DoesNotExist:
-            allCategories = None
-
-    if allCategories == None:
-        allCategories = Category.objects.filter(parent_category=None).order_by(
-                'name').all()
-
-    # we want to use the django unordered list filter hence we must adhere to
-    # the required data structure
-    result = []
-
-    for category in allCategories:
-        add_category(category, result)
-
-    return render_to_response('patterns/browse_patterns.html', {
-        'data': result
-        })
-
-def add_category(category, list):
-    """Recursive method that is used to generate a hierachiral category list
-
-    """
-
-    list.append(category)
-
-    child_categories = category.children.order_by('name').all()
-    patterns = category.patterns.order_by('name').all()
-
-    if len(child_categories) > 0 or len(patterns) > 0:
-        # category names are trimmed. Therefore using whitespace as the first
-        # and last character is save for distinction between marker and entry
-        list.append(' sub start ')
-
-    for child_category in child_categories:
-        add_category(child_category, list)
-
-    for pattern in patterns:
-        list.append(pattern)
-
-    if len(child_categories) > 0 or len(patterns) > 0:
-        list.append(' sub end ')
-
-    list.append(' row end ')
-
-def view_pattern(request, name):
-    """View details for a given pattern.
-
-    TODO what about a generic view for this?
-    A generic view may not be appropriate as the newest version needs to be
-    determined
-
-    """
-    pattern = get_object_or_404(Pattern, name__iexact=name)
-    version = pattern.get_current_version()
-    return HttpResponse(version)
-
-def with_tag(request, tag):
-    """Retrieve a list of patterns that have the given tag.
-
-    """
-    query_tag = Tag.objects.get(name=tag)
-    entries = TaggedItem.objects.get_by_model(Pattern, query_tag)
-    entries = entries.order_by('name')
-
-    return render_to_response("patterns/with_tag.html", {
-        'tag' : tag,
-        'entries' : entries
-    })

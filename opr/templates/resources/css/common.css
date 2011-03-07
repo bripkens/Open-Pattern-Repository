@@ -78,6 +78,17 @@ ul.hierarchal li > ul  {
 }
 
 /*#############################################################################
+::: Validation
+#############################################################################*/
+.val-show {
+    display: block;
+}
+
+.val-hide {
+    display: none;
+}
+
+/*#############################################################################
 ::: Page layout
 #############################################################################*/
 body {
@@ -154,7 +165,7 @@ span.required {
     width: 180px;
 }
 
-.box_content_general label .errorlist {
+.box_content_general label .errorlist, .box_content_general label .val-constraints {
     width: 250px;
     position: absolute;
     left: 285px;

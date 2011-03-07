@@ -160,7 +160,7 @@ class Component(models.Model):
 
 class TextBlock(models.Model):
     """TextBlock is the content specific to a pattern for a component
-    
+
     """
 
     component = models.ForeignKey(Component)
@@ -192,7 +192,7 @@ class Pattern(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return ('view_pattern', None, {
-            'name': self.name})
+            'wiki_name': self.wiki_name})
 
     def __unicode__(self):
         return self.name

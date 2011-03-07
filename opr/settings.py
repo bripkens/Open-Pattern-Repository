@@ -75,7 +75,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
-ROOT_URLCONF = 'OpenPatternRepository.urls'
+ROOT_URLCONF = 'opr.urls'
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -87,8 +87,12 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'django.contrib.markup',
     'tagging',
-    'OpenPatternRepository.patterns',
-    'OpenPatternRepository.api',
+    'opr.models',
+    'opr.browse.patterns',
+    'opr.administer.patterns',
+    'opr.administer.entities',
+    'opr.api',
+    'ajaxvalidation'
 )
 
 # Local development settings should be stored in the local_settings module
