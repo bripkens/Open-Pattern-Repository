@@ -156,7 +156,6 @@ header.page {
         }
 
         span {
-            // TODO use more appropriate hiding technique
             display: none;
         }
     }
@@ -170,7 +169,7 @@ header.page {
             top: 53px;
             left: 40px;
 
-            $nav-border-radius: 5px;
+            $nav-border-radius: 7px;
             $nav-outter-padding: 20px;
 
             li:first-child {
@@ -191,7 +190,7 @@ header.page {
                     color: $darkgray;
                     text-decoration: none;
                 }
-                a:active {
+                a:active, a.active {
                     color: $navgreen;
                 }
                 a:hover {
@@ -204,5 +203,18 @@ header.page {
                 padding-right: $nav-outter-padding;
             }
         }
+    }
+
+    aside {
+        height: 44px;
+        width: 300px;
+        position: absolute;
+        top: 0px;
+        right: 150px;
+        background-color: white;
+
+        $header-bar-border-radius: 7px;
+        @include bottom-left-border-radius($header-bar-border-radius);
+        @include bottom-right-border-radius($header-bar-border-radius);
     }
 }

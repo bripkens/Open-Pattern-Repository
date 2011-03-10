@@ -24,7 +24,10 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('django.views.generic.simple',
-                       (r'^$', 'direct_to_template', {'template' : 'index.html'}))
+                       (r'^$', 'direct_to_template', {'template' : 'index.html',
+                                                      'extra_context' : {
+                                                          'active' : 0
+                                                      }}))
 
 urlpatterns += patterns('',
    (r'^', include('opr.administer.patterns.urls')),

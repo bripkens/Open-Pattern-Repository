@@ -9,3 +9,4 @@ Dependencies
 - [django-piston](https://bitbucket.org/jespern/django-piston/wiki/Home "django-piston homepage")
 - [django-tagging](http://code.google.com/p/django-tagging/ "django-tagging homepage")
 - [python-markdown](http://www.freewisdom.org/projects/python-markdown/ "python-markdown homepage")
+- [Sass](http://sass-lang.com/ "Sass homepage")

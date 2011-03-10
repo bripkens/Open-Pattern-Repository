@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
     <title>Open Pattern Repository - {% block title %}{% endblock %}</title>
 
     <link rel="stylesheet" type="text/css" href="/resources/css/common.css" />
     <link rel="stylesheet" type="text/css" href="/resources/css/jqueryui/jquery-ui-1.8.9.custom.css" />
-
+    <link rel="shortcut icon" href="/resources/img/favicon.png" type="image/png" />
 
     <script type="text/javascript" src="/resources/js/jquery-1.5.min.js"></script>
     <script type="text/javascript" src="/resources/js/jquery-ui-1.8.9.min.js"></script>
@@ -23,13 +24,16 @@
     </h1>
     <nav>
         <ul>
-            <li><a href="/" title="Go to the landing page.">Start</a></li>
-            <li><a href="/" title="Browse through the patterns">Browse</a></li>
-            <li><a href="/" title="Search for patterns">Search</a></li>
-            <li><a href="/" title="Add a new pattern">Add</a></li>
-            <li><a href="/" title="Learn more about the OPR">Learn more</a></li>
+            <li><a href="/" class="{% if active == 0 %}active{% endif %}" title="Go to the landing page.">Start</a></li>
+            <li><a href="/" class="{% if active == 1 %}active{% endif %}" title="Browse through the patterns">Browse</a></li>
+            <li><a href="/" class="{% if active == 2 %}active{% endif %}" title="Search for patterns">Search</a></li>
+            <li><a href="/" class="{% if active == 3 %}active{% endif %}"title="Add a new pattern">Add</a></li>
+            <li><a href="/" class="{% if active == 4 %}active{% endif %}" title="Learn more about the OPR">Learn more</a></li>
         </ul>
     </nav>
+    <aside>
+        
+    </aside>
 </header>
 
     {% block content %}{% endblock %}
