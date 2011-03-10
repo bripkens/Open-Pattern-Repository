@@ -23,7 +23,10 @@ from django.contrib import admin
 
 admin.autodiscover()
 
-urlpatterns = patterns('',
+urlpatterns = patterns('django.views.generic.simple',
+                       (r'^$', 'direct_to_template', {'template' : 'index.html'}))
+
+urlpatterns += patterns('',
    (r'^', include('opr.administer.patterns.urls')),
    (r'^', include('opr.browse.patterns.urls')),
    (r'^api/(?P<emitter_format>[a-zA-Z]+)/', include('opr.api.urls')),

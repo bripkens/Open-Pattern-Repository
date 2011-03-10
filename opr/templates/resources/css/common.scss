@@ -1,6 +1,49 @@
-/*
- TODO: Add Open Pattern Specific namespace "opr-"
-*/
+/*#############################################################################
+::: Colour definitions
+#############################################################################*/
+$lightgreen: #48A659;
+$darkgreen: #3D8E4C;
+$darkgray: #414141;
+
+/*#############################################################################
+::: Mixins
+#############################################################################*/
+
+@mixin top-left-border-radius($radius) {
+    border-top-left-radius: $radius;
+    -moz-border-radius-topleft: $radius;
+    -webkit-border-top-left-radius: $radius;
+}
+
+@mixin top-right-border-radius($radius) {
+    border-top-right-radius: $radius;
+    -moz-border-radius-topright: $radius;
+    -webkit-border-top-right-radius: $radius;
+}
+
+@mixin bottom-right-border-radius($radius) {
+    border-bottom-right-radius: $radius;
+    -moz-border-radius-bottomright: $radius;
+    -webkit-border-bottom-right-radius: $radius;
+}
+
+@mixin bottom-left-border-radius($radius) {
+    border-bottom-left-radius: $radius;
+    -moz-border-radius-bottomleft: $radius;
+    -webkit-border-bottom-left-radius: $radius;
+}
+
+@mixin border-radius($radius) {
+    border-radius: $radius;
+    -moz-border-radius: $radius;
+    -webkit-border-radius: $radius;
+}
+
+@mixin box-shadow($settings) {
+    -moz-box-shadow: $settings;
+    -webkit-box-shadow: $settings;
+    box-shadow: $settings;
+}
 
 /*#############################################################################
 ::: CSS reset; http://meyerweb.com/eric/tools/css/reset/
@@ -92,331 +135,74 @@ ul.hierarchal li > ul  {
 ::: Page layout
 #############################################################################*/
 body {
-    font-family: Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif;
-    font-size: 14px;
-}
-
-/*#############################################################################
-::: Form layout
-#############################################################################*/
-span.required {
-    cursor: help;
-    color: red;
-}
-
-/*#############################################################################
-::: Manage pattern
-#############################################################################*/
-.box {
-    width: 650px;
-
-    float: left;
-
-    border: 1px solid black;
-    border-radius: 10px;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-
-    margin: 5px;
-    position: relative;
-}
-
-.side_pane {
-    float: left;
-}
-
-.side_pane .box {
-    width: 300px;
-    float: none;
-}
-
-.box h3 {
-    font-weight: bold;
-    padding: 5px 0 0 5px;
-}
-
-.box_content {
-    width: inherit;
-    padding: 5px;
-}
-
-.box hr {
-    width: 95%;
-    margin: 8px auto;
-    border: 0;
-    border-bottom: 1px dashed #000;
-    position: relative;
-    left: -5px;
-}
-
-/*::: General information box */
-.box_content_general label {
-    width: inherit;
-    display: block;
-    line-height: 30px;
-    position: relative;
-}
-
-.box_content_general input, .box_content_general select {
-    position: absolute;
-    left: 100px;
-    top: 4px;
-
-    width: 180px;
-}
-
-.box_content_general label .errorlist, .box_content_general label .val-constraints {
-    width: 250px;
-    position: absolute;
-    left: 285px;
-    z-index: 10;
-    background-color: #FEF1EC;
-    top: 3px;
-    padding: 5px;
-    line-height: 1em;
-    border: 1px solid #CD0A0A;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
-    border-radius: 4px;
-}
-
-.box_actions {
-    position: relative;
-    height: 30px;
-}
-
-.box_actions input {
-    position: absolute;
-    right: 12px;
-}
-
-.box_actions a {
-    position: absolute;
-    top: 5px;
-    left: 10px;
-    color: darkred;
-}
-
-/*::: Tag box */
-.box_content_tags input[type=text] {
-    position: relative;
-    left: 15px;
-    width: 200px;
-}
-
-.box_content_tags input[type=submit] {
-    position: relative;
-    left: 20px;
-}
-
-.box_content_tags ul {
-    max-height: 150px;
-    overflow-y: auto;
-}
-
-.box_content_tags ul li {
-    float: left;
-    margin-right: 25px;
-    font-size: 0.85em;
-    white-space: nowrap;
-    line-height: 1.5em;
-}
-
-.box_content_tags ul li a {
-    font-size: 0;
-    text-indent: -9999px;
-    width: 10px;
-    height: 10px;
-    position: absolute;
-    background-image: url(../img/remove-grayscale-10x10.png);
-    margin: 2px 0 0 3px;
-    cursor: pointer;
-}
-
-.box_content_tags ul li a:hover {
-    background-image: url(../img/remove-10x10.png);
-}
-
-.box_content_tags a.propose_tags {
-    position: relative;
-    left: 5px;
-}
-
-/*::: Category box */
-.box_content_categories > ul {
-    width: 295px;
-}
-
-.box_content_categories li > ul {
-    position: relative;
-    left: 15px;
-}
-
-/*::: Textual description box */
-.box .input_template_label {
-    position: absolute;
-    top: 11px;
-    right: 85px;
-    width: 280px;
-}
-
-.box .input_template_label select {
-    position: absolute;
-    top: -4px;
-    right: 0px;
-    width: 200px;
-}
-
-.box .input_template_change {
-    position: absolute;
-    top: 4px;
-    right: 10px;
-}
-
-.box .input_template_label .errorlist {
-    position: absolute;
-    z-index: 10;
-    background-color: #FEF1EC;
-    top: 3px;
-    padding: 5px;
-    line-height: 1em;
-    border: 1px solid #CD0A0A;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
-    border-radius: 4px;
-}
-
-.box .input_template_change + hr {
-    top: 5px;
-}
-
-.box .description {
-    width: 636px;
-    margin: 10px 7px 5px 7px;
-    position: relative;
-    line-height: 1.3em;
-}
-
-.box .description h4 {
-    font-weight: bold;
-    padding: 5px 0px;
-}
-
-.box .description .input_edit {
-    position: absolute;
-    top: 0px;
-    right: 3px;
-}
-
-/*::: Forces and consequences box */
-.box_forces_consequences {
-    clear: both;
-}
-
-.box_forces_consequences .box {
-    width: 960px;
-}
-
-.box_forces_consequences .box .entry {
-    padding: 5px;
-}
-
-.box_forces_consequences .entry label, .box_relationships .entry label {
-    width: inherit;
-    display: block;
-    line-height: 30px;
-    position: relative;
-}
-
-.box_forces_consequences .entry  input,
-.box_forces_consequences .entry  select,
-.box_relationships .entry  input,
-.box_relationships .entry  select{
-    position: absolute;
-    left: 140px;
-    top: 4px;
-    width: 210px;
-}
-
-.box_forces_consequences .entry textarea,
-.box_relationships .entry textarea {
-    width: 798px;
-    height: 150px;
-    position: absolute;
-    left: 140px;
-}
-
-.box_forces_consequences fieldset label.big,
-.box_relationships fieldset label.big{
-    height: 160px;
-}
-
-.box_forces_consequences .entry  label .errorlist,
-.box_relationships .entry  label .errorlist {
-    width: 250px;
-    position: absolute;
-    left: 355px;
-    z-index: 10;
-    background-color: #FEF1EC;
-    top: 3px;
-    padding: 5px;
-    line-height: 1em;
-    border: 1px solid #CD0A0A;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
-    border-radius: 4px;
-}
-
-.box_forces_consequences fieldset,
-.box_relationships fieldset{
-    position: relative;
-}
-
-.box_forces_consequences .ui-slider {
-    position: absolute;
-    top: 40px;
-    left: 380px;
-    width: 550px;
-}
-
-.box_forces_consequences .ui-slider .ui-widget-header {
-    /*background: -moz-linear-gradient(left, #5FFF32 0%, #F4FF28 50%, #FF0000 100%); /* firefox */
-    /*background: -webkit-gradient(linear, left top, right top, color-stop(0%,#5FFF32), color-stop(50%,#F4FF28), color-stop(100%,#FF0000)); /* webkit */
-    /*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5FFF32', endColorstr='#FF0000',GradientType=1 ); /* ie */
-    background: url(../img/impact-gradient-550.png);
-}
-
-/*::: Forces and consequences box */
-.box_relationships {
-    width: 960px;
-}
-
-.box_relationships .entry {
-    padding: 5px;
-}
-/*#############################################################################
-::: Tag cloud
-#############################################################################*/
-.tag-1 {
-    font-size: 12px;
-}
-
-.tag-2 {
-    font-size: 13px;
-}
-
-.tag-3 {
-    font-size: 14px;
-}
-
-.tag-4 {
+    font-family: sans-serif;
     font-size: 15px;
 }
 
-.tag-5 {
-    font-size: 16px;
-}
+header.page {
+    background-image: url(../img/header.png);
+    background-repeat: repeat-x;
+    height: 82px;
+    position: relative;
+    border-bottom: 2px solid $lightgreen;
 
-.tag-6 {
-    font-size: 17px;
+    h1 {
+        img {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            width: 78px;
+            height: 56px
+        }
+
+        span {
+            // TODO use more appropriate hiding technique
+            display: none;
+        }
+    }
+
+    nav {
+        height: 44px;
+        top: 44px;
+        
+        ul {
+            position: absolute;
+            top: 53px;
+            left: 40px;
+
+            $nav-border-radius: 5px;
+            $nav-outter-padding: 20px;
+
+            li:first-child {
+                @include top-left-border-radius($nav-border-radius);
+                padding-left: $nav-outter-padding;
+            }
+            li {
+                background-color: white;
+                float: left;
+                padding: 10px 8px 0;
+                font-weight: bold;
+                color: $darkgray;
+                height: 30px;
+
+                $navgreen: #009024;
+
+                a {
+                    color: $darkgray;
+                    text-decoration: none;
+                }
+                a:active {
+                    color: $navgreen;
+                }
+                a:hover {
+                    color: $navgreen;
+                    text-decoration: underline;
+                }
+            }
+            li:last-child {
+                @include top-right-border-radius($nav-border-radius);
+                padding-right: $nav-outter-padding;
+            }
+        }
+    }
 }
