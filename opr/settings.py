@@ -92,6 +92,7 @@ INSTALLED_APPS = (
     'opr.administer.patterns',
     'opr.administer.entities',
     'opr.api',
+    'opr.commands',
     'ajaxvalidation'
 )
 
