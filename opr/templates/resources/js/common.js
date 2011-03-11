@@ -22,9 +22,9 @@ opr.vars = {
 $(function() {
     // login menu slide down
     $(".opr-login").mouseenter(function() {
-        $(this).find("div.additional").stop(false, true).slideDown("fast");
+        $(this).find("div.additional").stop(false, true).delay(100).slideDown("fast");
     }).mouseleave(function() {
-        $(this).find("div.additional").stop(false, true).slideUp("fast");
+        $(this).find("div.additional").stop(false, true).delay(100).slideUp("fast");
     });
 });
 
@@ -167,7 +167,7 @@ $(function() {
     // TODO only apply this when the user is on the manage pattern page
     $("#change_template").click(opr.managePattern.changeTemplate);
 
-    $(".textual_description_box .description textarea").markItUp(mySettings);
+    $(".textual_description .description textarea").markItUp(mySettings);
 });
 
 opr.managePattern.changeTemplate = function() {
@@ -183,7 +183,7 @@ opr.managePattern.changeTemplate = function() {
     opr.cachedJSONRequest(url, {}, function(data) {
         // TODO error handling (template retrieval failed)
 
-        var descriptionBox = $(".textual_description_box");
+        var descriptionBox = $(".textual_description");
 
         // remove previous text input components
         descriptionBox.find(".description").remove();
@@ -199,7 +199,7 @@ opr.managePattern.changeTemplate = function() {
             var innerBox = document.createElement("div");
             innerBox.className = "description";
 
-            var heading = document.createElement("h4");
+            var heading = document.createElement("h2");
             $(heading).text(component.name);
             innerBox.appendChild(heading);
 
@@ -246,14 +246,14 @@ $(function() {
         });
     }
 
-    $("div.box_forces_consequences > div.box > div.entry > " +
+    $("div.forces_consequences > div.entry > " +
             "fieldset").each(function() {
 
         addslider($(this).find("label:eq(1) > select").get(0));
     });
 
     $("#input_add_driver").click(function() {
-        var lastFieldset = $(".box_forces_consequences fieldset:last");
+        var lastFieldset = $(".forces_consequences fieldset:last");
         var newFieldset = opr.cloneFormSet(lastFieldset, 'driver');
 
         var select = newFieldset.find("label:eq(1) > select").get(0);

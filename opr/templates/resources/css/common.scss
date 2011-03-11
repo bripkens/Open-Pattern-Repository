@@ -299,8 +299,6 @@ header.page {
                         margin: 5px 0 0 10px;
                     }
                     &[type=submit] {
-                        top: 26px;
-                        right: 11px;
                         margin-left: 8px;
                     }
                 }
@@ -313,6 +311,8 @@ header.page {
                     width: $user-menu-width - $user-menu-open-id-width;
                     height: 25px;
                     display: none;
+
+                    @include transition(border-radius 0.3s ease-in-out);
 
                     label {
                         position: relative;
@@ -452,6 +452,9 @@ label.default-layout {
     select {
         @extend input.default-layout;
     }
+    textarea {
+        
+    }
 }
 
 fieldset.default-fieldset {
@@ -526,6 +529,71 @@ form#manage_pattern {
                 position: relative;
                 left: 5px;
             }
+        }
+
+        .category_out ul li > ul{
+            margin-left: 10px;
+        }
+    }
+
+    #page_left {
+        .textual_description {
+            position: relative;
+
+            label {
+                position: absolute;
+                top: 0px;
+                right: 70px;
+
+                select {
+                    max-width: 200px;
+                }
+            }
+            .input_template_change {
+                position: absolute;
+                top: 0px;
+                right: 0px;
+            }
+            h2 {
+                font-weight: bold;
+                font-size: 1.1em;
+            }
+        }
+    }
+
+    .forces_consequences {
+        clear: both;
+        
+        h1 {
+            margin-bottom: 0.4em;
+            padding-top: 20px;
+        }
+        fieldset {
+            $padding-right: 40px;
+            padding: 5px $padding-right 5px 0;
+            width: $page_width / 2 - $padding-right;
+            padding-right: $padding-right;
+            float: left;
+            @extend fieldset.default-fieldset;
+
+            label select {
+                left: 150px;
+            }
+
+            .ui-slider {
+                width: 200px;
+                margin: 3px 0 5px 0;
+                left: 150px;
+
+                .ui-widget-header {
+                    background: url(../img/impact-gradient-200.png);
+                }
+            }
+        }
+        
+        input[type=submit] {
+            clear: left;
+            display: block;
         }
     }
 }

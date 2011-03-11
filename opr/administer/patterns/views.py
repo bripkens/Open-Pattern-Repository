@@ -62,7 +62,8 @@ def add_pattern(request):
         'form': mainForm,
         'driverForm': driverForm,
         'relationshipForm': relationshipForm,
-        'templateRelated': templateRelatedForm
+        'templateRelated': templateRelatedForm,
+        'active' : 3
     }
     context.update(csrf(request))
 
