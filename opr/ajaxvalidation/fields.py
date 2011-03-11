@@ -32,14 +32,17 @@ def add_required_class(self, *args, **kwargs):
 
     field_errors = set(self.errors[:])
 
-    result.append(u'<ul class="val-constraints">')
+    active = u'val-hide' if len(field_errors) == 0 else u'val-show'
+    result.append(u'<ul class="val-constraints ')
+    result.append(active)
+    result.append(u'">')
 
     for validation in possible_ajax_validations:
         if not validation[0](self):
             continue;
             
         msg = self.field.error_messages[validation[1]]
-
+        msg = force_unicode(msg)
         show_error = False
         if msg in field_errors:
             show_error = True

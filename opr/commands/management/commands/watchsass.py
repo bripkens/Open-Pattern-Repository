@@ -23,7 +23,7 @@ class Command(BaseCommand):
         scss = os.path.abspath("templates/resources/css/common.scss")
         css = os.path.abspath("templates/resources/css/common.css")
 
-        command = "sass \"" + scss + "\":\"" + css + "\""
+        command = "sass \"" + scss + "\":\"" + css + "\" --style compressed"
 
         print "Executing command '%s'" % command
         print "Sass watch parameter is not used due to some bug."
