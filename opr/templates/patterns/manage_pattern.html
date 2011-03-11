@@ -129,51 +129,87 @@
 {% endblock %}
 
 {% block aftercontent %}
-    
-    <div class="forces_consequences">
-        <h1>Driver</h1>
+        <div class="forces_consequences">
+            <h1>Driver</h1>
 
-        <div class="entry">
-            {{ driverForm.management_form }}
-            {% for df in driverForm.forms %}
-                <fieldset>
-                    <label>
-                        {{ df.quality_attribute.label }}
-                        {% with df.quality_attribute as field %}
-                            {% include "patterns/required.html" %}
-                        {% endwith %}:
-                        {{ df.quality_attribute }}
-                    </label>
-
-                    <label>
-                        {{ df.impact.label }}
-                        {% with df.impact as field %}
-                            {% include "patterns/required.html" %}
-                        {% endwith %}:
-                        {{ df.impact }}
-                    </label>
-
-                    <label>
-                        {{ df.type.label }}
-                        {% with df.type as field %}
-                            {% include "patterns/required.html" %}
-                        {% endwith %}:
-                        {{ df.type }}
-                    </label>
-
-                    <label class="big">
-                        <span class="top">{{ df.description.label }}
-                            {% with df.description as field %}
+            <div class="entry">
+                {{ driverForm.management_form }}
+                {% for df in driverForm.forms %}
+                    <fieldset>
+                        <label>
+                            {{ df.quality_attribute.label }}
+                            {% with df.quality_attribute as field %}
                                 {% include "patterns/required.html" %}
-                            {% endwith %}:</span>
-                        {{ df.description }}
-                    </label>
-                </fieldset>
-            {% endfor %}
+                            {% endwith %}:
+                            {{ df.quality_attribute }}
+                        </label>
+
+                        <label>
+                            {{ df.impact.label }}
+                            {% with df.impact as field %}
+                                {% include "patterns/required.html" %}
+                            {% endwith %}:
+                            {{ df.impact }}
+                        </label>
+
+                        <label>
+                            {{ df.type.label }}
+                            {% with df.type as field %}
+                                {% include "patterns/required.html" %}
+                            {% endwith %}:
+                            {{ df.type }}
+                        </label>
+
+                        <label class="big">
+                            <span class="top">{{ df.description.label }}
+                                {% with df.description as field %}
+                                    {% include "patterns/required.html" %}
+                                {% endwith %}:</span>
+                            {{ df.description }}
+                        </label>
+                    </fieldset>
+                {% endfor %}
+            </div>
+
+            <input type="submit" value="Add driver" id="input_add_driver"/>
         </div>
+        <div class="relationships">
+            <h1>Relationships</h1>
 
-        <input type="submit" value="Add driver" id="input_add_driver"/>
-    </div>
+            <div class="entry">
+                {{ relationshipForm.management_form }}
+                {% for rf in relationshipForm.forms %}
+                    <fieldset>
+                        <label>
+                            {{ rf.target.label }}
+                            {% with rf.target as field %}
+                                {% include "patterns/required.html" %}
+                            {% endwith %}:
+                            {{ rf.target }}
+                        </label>
 
+                        <label>
+                            {{ rf.type.label }}
+                            {% with rf.type as field %}
+                                {% include "patterns/required.html" %}
+                            {% endwith %}:
+                            {{ rf.type }}
+                        </label>
+
+                        <label class="big">
+                            <span class="top">{{ rf.description.label }}
+                                {% with rf.description as field %}
+                                    {% include "patterns/required.html" %}
+                                {% endwith %}:</span>
+                            {{ rf.description }}
+                        </label>
+                        <hr/>
+                    </fieldset>
+                {% endfor %}
+            </div>
+
+            <input type="submit" value="Add relationship"
+                   id="input_add_relationship"/>
+        </div>
     </form>
 {% endblock %}

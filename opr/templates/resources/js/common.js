@@ -275,7 +275,7 @@ $(function() {
  ############################################################################*/
 $(function() {
     $("#input_add_relationship").click(function() {
-        var lastFieldset = $(".box_relationships fieldset:last");
+        var lastFieldset = $(".relationships fieldset:last");
         opr.cloneFormSet(lastFieldset, 'relationships');
         return false;
     });
@@ -337,6 +337,9 @@ opr.cloneFormSet = function(selector, type) {
         $(this).attr({'name': name, 'id': id}).val('').removeAttr('checked');
     });
     newElement.find('label').each(function() {
+        if ($(this).attr("for") == "") {
+            return;
+        }
         var newFor = $(this).attr('for').replace('-' + (total-1) + '-','-' + total + '-');
         $(this).attr('for', newFor);
     });
