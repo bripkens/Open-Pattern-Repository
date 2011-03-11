@@ -1,6 +1,9 @@
 /*#############################################################################
-::: Colour definitions
+::: Vars
 #############################################################################*/
+$page_width: 1000px;
+$page_sidebar_width: 320px;
+
 $lightgreen: #48A659;
 $darkgreen: #3D8E4C;
 $darkgray: #414141;
@@ -43,6 +46,31 @@ $darkgray: #414141;
     -moz-box-shadow: $settings;
     -webkit-box-shadow: $settings;
     box-shadow: $settings;
+}
+
+@mixin transition($settings) {
+    -webkit-transition: $settings;
+	-moz-transition: $settings;
+	-o-transition: $settings;
+	-webkit-transition: $settings;
+	transition: $settings;
+}
+
+/*#############################################################################
+::: Icons
+#############################################################################*/
+@mixin sprite-base($img, $x, $y, $width, $height) {
+    background-image: $img;
+    background-repeat: no-repeat;
+    background-position: $x $y;
+    width: $width;
+    height: $height;
+}
+.icon-alert-yellow {
+    @include sprite-base(url(../img/alert-yellow.png), 0, 0, 43px, 42px);
+}
+.icon-bug {
+    @include sprite-base(url(../img/bug.png), 0, 0, 46px, 41px);
 }
 
 /*#############################################################################
@@ -136,7 +164,7 @@ ul.hierarchal li > ul  {
 #############################################################################*/
 body {
     font-family: sans-serif;
-    font-size: 15px;
+    font-size: 14px;
 }
 
 header.page {
@@ -146,75 +174,358 @@ header.page {
     position: relative;
     border-bottom: 2px solid $lightgreen;
 
-    h1 {
-        img {
-            position: absolute;
-            right: 20px;
-            top: 15px;
-            width: 78px;
-            height: 56px
-        }
+    .header_indention {
+        width: $page_width;
+        margin: 0 auto;
+        position: relative;
 
-        span {
-            display: none;
-        }
-    }
-
-    nav {
-        height: 44px;
-        top: 44px;
-        
-        ul {
-            position: absolute;
-            top: 53px;
-            left: 40px;
-
-            $nav-border-radius: 7px;
-            $nav-outter-padding: 20px;
-
-            li:first-child {
-                @include top-left-border-radius($nav-border-radius);
-                padding-left: $nav-outter-padding;
+        h1 {
+            img {
+                position: absolute;
+                right: 20px;
+                top: 15px;
+                width: 78px;
+                height: 56px
             }
-            li {
-                background-color: white;
-                float: left;
-                padding: 10px 8px 0;
-                font-weight: bold;
-                color: $darkgray;
-                height: 30px;
 
-                $navgreen: #009024;
+            span {
+                display: none;
+            }
+        }
 
-                a {
+        nav {
+            height: 44px;
+            top: 44px;
+
+            ul {
+                position: absolute;
+                top: 53px;
+                left: 10px;
+
+                $nav-border-radius: 7px;
+                $nav-outter-padding: 20px;
+
+                li {
+                    background-color: white;
+                    float: left;
+                    padding: 10px 8px 0;
+                    font-weight: bold;
                     color: $darkgray;
-                    text-decoration: none;
-                }
-                a:active, a.active {
-                    color: $navgreen;
-                }
-                a:hover {
-                    color: $navgreen;
-                    text-decoration: underline;
+                    height: 21px;
+
+                    $navgreen: #009024;
+
+                    &:first-child {
+                        @include top-left-border-radius($nav-border-radius);
+                        padding-left: $nav-outter-padding;
+                    }
+
+                    &:last-child {
+                        @include top-right-border-radius($nav-border-radius);
+                        padding-right: $nav-outter-padding;
+                    }
+
+                    a {
+                        color: $darkgray;
+                        text-decoration: none;
+
+                        &:active, &.active {
+                            color: $navgreen;
+                        }
+                        &:hover {
+                            color: $navgreen;
+                            text-decoration: underline;
+                        }
+                        &:focus {
+                            color: $navgreen;
+                        }
+                    }
+
                 }
             }
-            li:last-child {
-                @include top-right-border-radius($nav-border-radius);
-                padding-right: $nav-outter-padding;
+        }
+
+        aside {
+            $user-menu-width: 400px;
+            $user-menu-open-id-width: 35px;
+            height: 28px;
+            width: $user-menu-width;
+            position: absolute;
+            top: 0px;
+            right: 140px;
+            background-color: white;
+
+            $header-bar-border-radius: 7px;
+            @include bottom-left-border-radius($header-bar-border-radius);
+            @include bottom-right-border-radius($header-bar-border-radius);
+
+            .openid-login-button {
+                background-color: #efefef;
+                @include bottom-left-border-radius($header-bar-border-radius);
+
+                height: inherit;
+                width: $user-menu-open-id-width;
+                float: left;
+
+                .openid-logo {
+                    width: 25px;
+                    height: 25px;
+                    background-image: url(../img/openid-icon.png);
+                    background-position: 0 0;
+                    margin: 2px 0 0 5px;
+                    display: block;
+                    font-size: 0;
+                    text-indent: -9999px;
+
+                    &:hover {
+                        background-position: 25px 0;
+                    }
+                }
+            }
+
+            .opr-login {
+                @include bottom-right-border-radius($header-bar-border-radius);
+                background-color: white;
+                height: inherit;
+                float: left;
+                width: $user-menu-width - $user-menu-open-id-width;
+                position: relative;
+
+                @include transition(all 0.3s ease-in-out);
+
+                input {
+                    &[type=text], &[type=password] {
+                        width: 130px;
+                        margin: 5px 0 0 10px;
+                    }
+                    &[type=submit] {
+                        top: 26px;
+                        right: 11px;
+                        margin-left: 8px;
+                    }
+                }
+
+                .additional {
+                    position: absolute;
+                    top: 27px;
+                    left: 0px;
+                    background-color: white;
+                    width: $user-menu-width - $user-menu-open-id-width;
+                    height: 25px;
+                    display: none;
+
+                    label {
+                        position: relative;
+                        top: 5px;
+                        left: 6px;
+
+                        input {
+                            position: relative;
+                            top: 1px;
+                        }
+                    }
+
+                    &.rounded {
+
+                    }
+                }
+
+                &:hover {
+                    @include bottom-right-border-radius(0px);
+
+                    .additional {
+                        @include bottom-right-border-radius($header-bar-border-radius);
+                        @include bottom-left-border-radius($header-bar-border-radius);
+                    }
+                }
             }
         }
     }
+}
 
-    aside {
-        height: 44px;
-        width: 300px;
-        position: absolute;
-        top: 0px;
-        right: 150px;
-        background-color: white;
+#page_content {
+    width: $page_width;
+    margin: 15px auto 0;
 
-        $header-bar-border-radius: 7px;
-        @include bottom-left-border-radius($header-bar-border-radius);
-        @include bottom-right-border-radius($header-bar-border-radius);
+    $sidebar_margin: 40px;
+
+    #page_left {
+        width: $page_width - $page_sidebar_width - $sidebar_margin;
+        float: left;
+        margin-right: $sidebar_margin;
+    }
+
+    #page_right {
+        width: $page_sidebar_width;
+        float: left;
+        font-size: 0.9em;
+
+        h1 {
+            margin: 0.7em 0 0.5em;
+        }
+    }
+
+    h1 {
+        color: $lightgreen;
+        margin: 0.7em 0 1.2em;
+        font-size: 1.5em;
+    }
+
+    p {
+        line-height: 1.5em;
+        margin: 0.7em 0;
+    }
+
+    .teaser {
+        width: 150px;
+        height: 150px;
+        display: inline-block;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+        color: white;
+        text-indent: -9999px;
+        position: relative;
+        top: -15px;
+
+        &.add {
+            background-image: url(../img/teaser-add.png);
+        }
+        &.browse {
+            background-image: url(../img/teaser-browse.png);
+        }
+        &.search {
+            background-image: url(../img/teaser-search.png);
+        }
+    }
+
+    .float_icon {
+        float: left;
+        padding: 0 6px 3px;
+    }
+}
+
+/*#############################################################################
+::: Form layout
+#############################################################################*/
+span.required {
+    cursor: help;
+    color: red;
+}
+
+fieldset {
+    position: relative;
+}
+
+input, textarea, select {
+    color: #4F4F4F;
+    padding: 1px;
+    border: 1px solid #4F4F4F;
+    margin-top: 0.2em;
+    background-color: #f8f8f8;
+}
+
+input[type=submit] {
+    padding: 3px 5px;
+    background-color: $darkgreen;
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+input.default-layout {
+    width: 200px;
+    position: absolute;
+    left: 110px;
+    top: 4px;
+}
+
+label.default-layout {
+    position: relative;
+    display: block;
+    line-height: 30px;
+
+    input {
+        &[type=text], &[type=password], &[type=url] {
+            @extend input.default-layout;
+        }
+    }
+    select {
+        @extend input.default-layout;
+    }
+}
+
+fieldset.default-fieldset {
+    label {
+        @extend label.default-layout;
+    }
+}
+
+
+/*#############################################################################
+::: Manage pattern
+#############################################################################*/
+form#manage_pattern {
+    #page_right {
+        input#save_pattern {
+            position: absolute;
+            bottom: -16px;
+            right: 5px;
+        }
+        a#delete_pattern {
+            position: relative;
+            top: 10px;
+        }
+        h1#tagheading {
+            margin-top: 1.5em;
+        }
+
+        .content_tags {
+            input[type=text] {
+                position: relative;
+                left: 15px;
+                width: 200px;
+            }
+
+            input[type=submit] {
+                position: relative;
+                left: 20px;
+            }
+
+            ul {
+                max-height: 150px;
+                overflow-y: auto;
+
+                 li {
+                    float: left;
+                    margin-right: 25px;
+                    white-space: nowrap;
+                    line-height: 1.5em;
+                    position: relative;
+
+                    a {
+                        font-size: 0;
+                        text-indent: -9999px;
+                        width: 10px;
+                        height: 10px;
+                        position: absolute;
+                        background-image: url(../img/remove-10x10.png);
+                        background-position: -10px 0;
+                        background-repeat: no-repeat;
+                        margin: 2px 0 0 3px;
+                        cursor: pointer;
+                        top: 2px;
+
+                        &:hover {
+                            background-position: 0 0;
+                        }
+                    }
+                }
+            }
+
+            a.propose_tags {
+                position: relative;
+                left: 5px;
+            }
+        }
     }
 }

@@ -10,3 +10,14 @@ Dependencies
 - [django-tagging](http://code.google.com/p/django-tagging/ "django-tagging homepage")
 - [python-markdown](http://www.freewisdom.org/projects/python-markdown/ "python-markdown homepage")
 - [Sass](http://sass-lang.com/ "Sass homepage")
+
+
+Django commands
+------------------
+Use the *watchsass* command to convert the file *common.scss* to *common.css*. This command won't exist immediately but instead will watch for changes and convert on ever change.
+
+Used icons (sets)
+------------------
+
+### Free for commercial use
+- [Onebit](http://www.icojoy.com/articles/44/ "Onebit")

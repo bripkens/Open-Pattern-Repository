@@ -1,4 +1,4 @@
-{% extends "patterns/template.html" %}
+{% extends "lib/template_sidebars.html" %}
 
 {% block title %}Manage pattern{% endblock %}
 
@@ -9,9 +9,13 @@
     <link rel="stylesheet" type="text/css" href="/resources/js/markitup/sets/markdown/style.css"/>
 {% endblock %}
 
-{% block content %}
-    <form method="post" action="#">
+{% block beforecontent %}
+    <form method="post" action="#" id="manage_pattern">
     {% csrf_token %}
+{% endblock %}
+
+{% block left %}
+
 
     <p>Fields marked <span title="required" class="required">*</span> are
         required for submission.</p>
@@ -19,96 +23,18 @@
     {{ form.non_field_errors }}
 
     <div class="side_pane">
-        <div class="box">
-            <h3>General information</h3>
-
-            <div class="box_content_general box_content">
-                <fieldset>
-                    <label for="id_name">
-                        {{ form.name.label }}
-                        {% with form.name as field %}
-                            {% include "patterns/required.html" %}
-                        {% endwith %}:
-                        {{ form.name }}
-                    </label>
-
-                    <label for="id_permalink">
-                        {{ form.permalink.label }}
-                        {% with form.permalink as field %}
-                            {% include "patterns/required.html" %}
-                        {% endwith %}:
-                        {{ form.permalink }}
-                    </label>
-
-                    <label for="id_author">
-                        {{ form.author.label }}
-                        {% with form.author as field %}
-                            {% include "patterns/required.html" %}
-                        {% endwith %}:
-                        {{ form.author }}
-                    </label>
-
-                    <label for="id_source">
-                        {{ form.source.label }}
-                        {% with form.source as field %}
-                            {% include "patterns/required.html" %}
-                        {% endwith %}:
-                        {{ form.source }}
-                    </label>
-
-                    <label for="id_license">
-                        {{ form.license.label }}
-                        {% with form.license as field %}
-                            {% include "patterns/required.html" %}
-                        {% endwith %}:
-                        {{ form.license }}
-                    </label>
-                </fieldset>
-            </div>
-
-            <div class="box_actions">
-                <a href="#" title="Delete this pattern.">Delete</a>
-
-                <input type="submit" value="Save"/>
-            </div>
-        </div>
 
         <div class="box">
             <h3>Tags</h3>
 
-            <div class="hidden">
-                {{ form.tags }}
-            </div>
-
-            <div class="box_content box_content_tags">
-                <fieldset>
-                    <label for="input_tag" class="hidden">Add tag</label>
-                    <input id="input_tag" type="text"
-                           placeholder="Add tag"
-                           class="tag_autocomplete"/>
-                    <input id="add_tag" type="submit" value="Add"/>
-                    <ul class="propose_tag_out">
-                        <li></li>
-                    </ul>
-                </fieldset>
-
-                <hr/>
-
-                <ul id="output_tag">
-                </ul>
-
-                {#                    <hr/>#}
-                {##}
-                {#                    <a href="#" title="Get some proposed tags"#}
-                {#                       class="propose_tags">Propose tags</a>#}
-            </div>
+            
         </div>
 
         <div class="box">
             <h3>Categories</h3>
 
             <div class="box_content box_content_categories">
-                {{ form.categories }}
+
             </div>
         </div>
     </div>
@@ -231,6 +157,88 @@
                    id="input_add_relationship"/>
         </div>
     </div>
-    </form>
 
+
+{% endblock %}
+
+{% block right %}
+    <h1>General information</h1>
+
+    <fieldset class="default-fieldset">
+        <label for="id_name">
+            {{ form.name.label }}
+            {% with form.name as field %}
+                {% include "patterns/required.html" %}
+            {% endwith %}:
+            {{ form.name }}
+        </label>
+
+        <label for="id_permalink">
+            {{ form.permalink.label }}
+            {% with form.permalink as field %}
+                {% include "patterns/required.html" %}
+            {% endwith %}:
+            {{ form.permalink }}
+        </label>
+
+        <label for="id_author">
+            {{ form.author.label }}
+            {% with form.author as field %}
+                {% include "patterns/required.html" %}
+            {% endwith %}:
+            {{ form.author }}
+        </label>
+
+        <label for="id_source">
+            {{ form.source.label }}
+            {% with form.source as field %}
+                {% include "patterns/required.html" %}
+            {% endwith %}:
+            {{ form.source }}
+        </label>
+
+        <label for="id_license">
+            {{ form.license.label }}
+            {% with form.license as field %}
+                {% include "patterns/required.html" %}
+            {% endwith %}:
+            {{ form.license }}
+        </label>
+
+        <a href="#" title="Delete this pattern" id="delete_pattern">Delete this pattern</a>
+        <input type="submit" value="Save" id="save_pattern"/>
+    </fieldset>
+
+    <h1 id="tagheading">Tags</h1>
+    <div class="hidden">
+        {{ form.tags }}
+    </div>
+
+    <div class="content_tags">
+        <fieldset>
+            <label for="input_tag" class="hidden">Add tag</label>
+            <input id="input_tag" type="text"
+                   placeholder="Add tag"
+                   class="tag_autocomplete"/>
+            <input id="add_tag" type="submit" value="Add"/>
+            <ul class="propose_tag_out">
+                <li></li>
+            </ul>
+        </fieldset>
+
+        <ul id="output_tag">
+        </ul>
+
+        {#                    <hr/>#}
+        {##}
+        {#                    <a href="#" title="Get some proposed tags"#}
+        {#                       class="propose_tags">Propose tags</a>#}
+    </div>
+
+    <h1>Categories</h1>
+    {{ form.categories }}
+{% endblock %}
+
+{% block aftercontent %}
+    </form>
 {% endblock %}

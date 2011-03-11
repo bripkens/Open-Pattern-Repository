@@ -27,7 +27,8 @@ urlpatterns = patterns('django.views.generic.simple',
                        (r'^$', 'direct_to_template', {'template' : 'index.html',
                                                       'extra_context' : {
                                                           'active' : 0
-                                                      }}))
+                                                      }}),
+                       (r'^noJs.html', 'direct_to_template', {'template' : "error/noJs.html"}))
 
 urlpatterns += patterns('',
    (r'^', include('opr.administer.patterns.urls')),

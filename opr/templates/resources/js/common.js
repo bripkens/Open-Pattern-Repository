@@ -17,10 +17,15 @@ opr.vars = {
 };
 
 /*#############################################################################
- ::: Initialization
+ ::: Abstract
  ############################################################################*/
 $(function() {
-    // TODO empty
+    // login menu slide down
+    $(".opr-login").mouseenter(function() {
+        $(this).find("div.additional").stop(false, true).slideDown("fast");
+    }).mouseleave(function() {
+        $(this).find("div.additional").stop(false, true).slideUp("fast");
+    });
 });
 
 /*#############################################################################

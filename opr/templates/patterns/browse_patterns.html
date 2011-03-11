@@ -1,4 +1,4 @@
-{% extends "patterns/template.html" %}
+{% extends "lib/template_sidebars.html" %}
 
 {% load tagging_tags %}
 
@@ -8,7 +8,7 @@
 
 {% endblock %}
 
-{% block content %}
+{% block left %}
     <h1>Categories</h1>
     <ul class="hierarchal">
         {% for row in data %}
@@ -31,6 +31,9 @@
         {% endfor %}
     </ul>
 
+{% endblock %}
+
+{% block right %}
     <h1>Tags</h1>
 
     {% tag_cloud_for_model models.Pattern as tags with steps=6 min_count=1 distribution=log %}
