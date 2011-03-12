@@ -21,3 +21,10 @@ Used icons (sets)
 
 ### Free for commercial use
 - [Onebit](http://www.icojoy.com/articles/44/ "Onebit")
+- [34aL volume 3.2 SE](http://www.iconfinder.com/browse/iconset/icojoy/ "Iconset homepage")
+
+Preview
+------------------
+The following screenshot shows the layout of this version of the Open Pattern Repository.
+
+![Open Pattern Repository layout](http://bripkens.de/images/dopr-preview.png "Open Pattern Repository layout")
