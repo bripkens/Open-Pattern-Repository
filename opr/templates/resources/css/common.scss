@@ -789,6 +789,68 @@ form#manage_pattern {
                 left: 5px;
             }
         }
+
+        .categories_tags {
+            > .category_out {
+                float: left;
+                width: 480px;
+                
+                ul li > ul {
+                    margin-left: 13px;
+                }
+            }
+
+            .content_tags {
+                float: left;
+                width: 480px;
+
+                input[type=text] {
+                    position: relative;
+                    left: 15px;
+                    width: 200px;
+                }
+
+                input[type=submit] {
+                    position: relative;
+                    left: 20px;
+                }
+
+                ul {
+                    max-height: 150px;
+                    overflow-y: auto;
+
+                     li {
+                        float: left;
+                        margin-right: 25px;
+                        white-space: nowrap;
+                        line-height: 1.5em;
+                        position: relative;
+
+                        a {
+                            font-size: 0;
+                            text-indent: -9999px;
+                            width: 10px;
+                            height: 10px;
+                            position: absolute;
+                            background-image: url(../img/remove-10x10.png);
+                            background-position: -10px 0;
+                            background-repeat: no-repeat;
+                            margin: 2px 0 0 3px;
+                            cursor: pointer;
+                            top: 2px;
+
+                            &:hover {
+                                background-position: 0 0;
+                            }
+                        }
+                    }
+                }
+            }
+
+            p:last-child {
+                padding-top: 10px;
+            }
+        }
     }
 
     p.accordion-manage-links {

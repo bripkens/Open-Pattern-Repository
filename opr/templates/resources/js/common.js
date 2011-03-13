@@ -214,7 +214,7 @@ $(function() {
     $("#change_template").click(opr.managePattern.changeTemplate);
 
     if (typeof mySettings != "undefined") {
-        $(".textual_description .description textarea").markItUp(mySettings);
+        $(".textual-description-step textarea").markItUp(mySettings);
     }
 });
 

@@ -235,7 +235,36 @@
             <div>
             </div>
         </h2>
-        <div>
+        <div class="categories_tags">
+            <div class="hidden">
+                {{ form.tags }}
+            </div>
+
+            <div class="content_tags">
+                <fieldset>
+                    <label for="input_tag" class="hidden">Add tag</label>
+                    <input id="input_tag" type="text"
+                           placeholder="Add tag"
+                           class="tag_autocomplete"/>
+                    <input id="add_tag" type="submit" value="Add"/>
+                    <ul class="propose_tag_out">
+                        <li></li>
+                    </ul>
+                </fieldset>
+
+                <ul id="output_tag">
+                </ul>
+
+                {#                    <hr/>#}
+                {##}
+                {#                    <a href="#" title="Get some proposed tags"#}
+                {#                       class="propose_tags">Propose tags</a>#}
+            </div>
+
+            <div class="category_out">
+                {{ form.categories }}
+            </div>
+
             <input type="submit" value="Previous step" class="navbutton previous last" />
             <p class="clearFloat"></p>
         </div>
