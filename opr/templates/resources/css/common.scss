@@ -779,6 +779,16 @@ form#manage_pattern {
                 left: 5px;
             }
         }
+
+        .relationships {
+            @extend .forces_consequences;
+
+            #input_add_relationship {
+                position: absolute;
+                bottom: 5px;
+                left: 5px;
+            }
+        }
     }
 
     p.accordion-manage-links {

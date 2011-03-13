@@ -189,8 +189,39 @@
             <div>
             </div>
         </h2>
-        <div>
-            Relationships
+        <div class="relationships">
+            {{ relationshipForm.management_form }}
+            <div class="entries">
+                {% for rf in relationshipForm.forms %}
+                    <fieldset class="default-layout">
+                        <label>
+                            {{ rf.target.label }}
+                            {% with rf.target as field %}
+                                {% include "patterns/required.html" %}
+                            {% endwith %}:
+                            {{ rf.target }}
+                        </label>
+
+                        <label>
+                            {{ rf.type.label }}
+                            {% with rf.type as field %}
+                                {% include "patterns/required.html" %}
+                            {% endwith %}:
+                            {{ rf.type }}
+                        </label>
+
+                        <label class="big">
+                            <span class="top">{{ rf.description.label }}
+                                {% with rf.description as field %}
+                                    {% include "patterns/required.html" %}
+                                {% endwith %}:</span>
+                            {{ rf.description }}
+                        </label>
+                    </fieldset>
+                {% endfor %}
+            </div>
+
+            <input type="submit" value="Add relationship" id="input_add_relationship"/>
             <input type="submit" value="Previous step" class="navbutton previous" />
             <input type="submit" value="Next step" class="navbutton next" />
             <p class="clearFloat"></p>
