@@ -427,6 +427,20 @@ input, textarea, select {
     border: 1px solid #4F4F4F;
     margin-top: 0.2em;
     background-color: #f8f8f8;
+
+    &:hover, &:focus {
+        background-color: white;
+    }
+}
+
+textarea.markdown {
+    background-image: url(../img/markdown-syntax.png);
+    background-repeat: no-repeat;
+    background-position: 100% 100%;
+
+    &:focus {
+        background-image: none;
+    }
 }
 
 input[type=submit] {
@@ -449,6 +463,10 @@ label.default-layout {
     display: block;
     line-height: 30px;
 
+    &.big {
+        height: 120px;
+    }
+
     input {
         &[type=text], &[type=password], &[type=url] {
             @extend input.default-layout;
@@ -458,7 +476,11 @@ label.default-layout {
         @extend input.default-layout;
     }
     textarea {
-        
+        position: absolute;
+        height: 100px;
+        width: 500px;
+        left: 139px;
+        top: 3px;
     }
 }
 
@@ -590,9 +612,7 @@ fieldset.default-layout {
                 /*margin: 3px 0 5px 0;*/
                 /*left: 150px;*/
 
-                /*.ui-widget-header {*/
-                    /*background: url(../img/impact-gradient-200.png);*/
-                /*}*/
+
             /*}*/
         /*}*/
         /**/
@@ -607,6 +627,10 @@ fieldset.default-layout {
 ::: Manage pattern v2
 #############################################################################*/
 form#manage_pattern {
+    textarea {
+        @extend textarea.markdown;
+    }
+
     .accordion {
         $accordion-border-radius: 15px;
         $accordion-border: 1px solid $darkgray;
@@ -716,11 +740,39 @@ form#manage_pattern {
                     right: 0px;
                     height: 262px;
                     border: 1px solid $darkgray;
+                    background-image: url(../img/preview-tile.png);
                 }
             }
         }
 
         .forces_consequences {
+            div.entries {
+                fieldset {
+                    border-top: 1px dashed #bebebe;
+                    padding: 10px 0 5px;
+
+                    .ui-slider {
+                        position: absolute;
+                        left: 380px;
+                        width: 230px;
+                        top: 51px;
+
+                        .ui-widget-header {
+                            background: url(../img/impact-gradient-230.png);
+                        }
+                    }
+
+                    &:first-child {
+                        border: 0;
+                        padding-top: 0;
+
+                        .ui-slider {
+                            top: 42px;
+                        }
+                    }
+                }
+            }
+
             #input_add_driver {
                 position: absolute;
                 bottom: 5px;
