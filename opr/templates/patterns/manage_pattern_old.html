@@ -1,0 +1,215 @@
+{% extends "lib/template_sidebars.html" %}
+
+{% block title %}Manage pattern{% endblock %}
+
+{% block head %}
+    <script type="text/javascript" src="/resources/js/markitup/jquery.markitup.js"></script>
+    <script type="text/javascript" src="/resources/js/markitup/sets/markdown/set.js"></script>
+    <link rel="stylesheet" type="text/css" href="/resources/js/markitup/skins/simple/style.css"/>
+    <link rel="stylesheet" type="text/css" href="/resources/js/markitup/sets/markdown/style.css"/>
+{% endblock %}
+
+{% block beforecontent %}
+    <form method="post" action="#" id="manage_pattern">
+    {% csrf_token %}
+{% endblock %}
+
+{% block left %}
+
+    {{ form.non_field_errors }}
+
+    <div class="textual_description">
+        <h1>Textual description</h1>
+
+        <label for="id_template" class="input_template_label">
+            {{ form.template.label }}
+            {% with form.template as field %}
+                {% include "patterns/required.html" %}
+            {% endwith %}:
+            {{ form.template }}
+        </label>
+
+        <input id="change_template"
+               type="submit" value="Change" class="input_template_change"/>
+
+        {% for field in templateRelated %}
+            <div class="description">
+                <h2>{{ field.label }}
+                    {% include "patterns/required.html" %}
+                </h2>
+
+                {{ field }}
+            </div>
+        {% endfor %}
+    </div>
+
+
+{% endblock %}
+
+{% block right %}
+    <h1>General information</h1>
+
+    <fieldset class="default-fieldset">
+        <label for="id_name">
+            {{ form.name.label }}
+            {% with form.name as field %}
+                {% include "patterns/required.html" %}
+            {% endwith %}:
+            {{ form.name }}
+        </label>
+
+        <label for="id_permalink">
+            {{ form.permalink.label }}
+            {% with form.permalink as field %}
+                {% include "patterns/required.html" %}
+            {% endwith %}:
+            {{ form.permalink }}
+        </label>
+
+        <label for="id_author">
+            {{ form.author.label }}
+            {% with form.author as field %}
+                {% include "patterns/required.html" %}
+            {% endwith %}:
+            {{ form.author }}
+        </label>
+
+        <label for="id_source">
+            {{ form.source.label }}
+            {% with form.source as field %}
+                {% include "patterns/required.html" %}
+            {% endwith %}:
+            {{ form.source }}
+        </label>
+
+        <label for="id_license">
+            {{ form.license.label }}
+            {% with form.license as field %}
+                {% include "patterns/required.html" %}
+            {% endwith %}:
+            {{ form.license }}
+        </label>
+
+        <a href="#" title="Delete this pattern" id="delete_pattern">Delete this pattern</a>
+        <input type="submit" value="Save" id="save_pattern"/>
+    </fieldset>
+
+    <h1 id="tagheading">Tags</h1>
+    <div class="hidden">
+        {{ form.tags }}
+    </div>
+
+    <div class="content_tags">
+        <fieldset>
+            <label for="input_tag" class="hidden">Add tag</label>
+            <input id="input_tag" type="text"
+                   placeholder="Add tag"
+                   class="tag_autocomplete"/>
+            <input id="add_tag" type="submit" value="Add"/>
+            <ul class="propose_tag_out">
+                <li></li>
+            </ul>
+        </fieldset>
+
+        <ul id="output_tag">
+        </ul>
+
+        {#                    <hr/>#}
+        {##}
+        {#                    <a href="#" title="Get some proposed tags"#}
+        {#                       class="propose_tags">Propose tags</a>#}
+    </div>
+
+    <h1>Categories</h1>
+    <div class="category_out">
+        {{ form.categories }}
+    </div>
+
+
+{% endblock %}
+
+{% block aftercontent %}
+        <div class="forces_consequences">
+            <h1>Driver</h1>
+
+            <div class="entry">
+                {{ driverForm.management_form }}
+                {% for df in driverForm.forms %}
+                    <fieldset>
+                        <label>
+                            {{ df.quality_attribute.label }}
+                            {% with df.quality_attribute as field %}
+                                {% include "patterns/required.html" %}
+                            {% endwith %}:
+                            {{ df.quality_attribute }}
+                        </label>
+
+                        <label>
+                            {{ df.impact.label }}
+                            {% with df.impact as field %}
+                                {% include "patterns/required.html" %}
+                            {% endwith %}:
+                            {{ df.impact }}
+                        </label>
+
+                        <label>
+                            {{ df.type.label }}
+                            {% with df.type as field %}
+                                {% include "patterns/required.html" %}
+                            {% endwith %}:
+                            {{ df.type }}
+                        </label>
+
+                        <label class="big">
+                            <span class="top">{{ df.description.label }}
+                                {% with df.description as field %}
+                                    {% include "patterns/required.html" %}
+                                {% endwith %}:</span>
+                            {{ df.description }}
+                        </label>
+                    </fieldset>
+                {% endfor %}
+            </div>
+
+            <input type="submit" value="Add driver" id="input_add_driver"/>
+        </div>
+        <div class="relationships">
+            <h1>Relationships</h1>
+
+            <div class="entry">
+                {{ relationshipForm.management_form }}
+                {% for rf in relationshipForm.forms %}
+                    <fieldset>
+                        <label>
+                            {{ rf.target.label }}
+                            {% with rf.target as field %}
+                                {% include "patterns/required.html" %}
+                            {% endwith %}:
+                            {{ rf.target }}
+                        </label>
+
+                        <label>
+                            {{ rf.type.label }}
+                            {% with rf.type as field %}
+                                {% include "patterns/required.html" %}
+                            {% endwith %}:
+                            {{ rf.type }}
+                        </label>
+
+                        <label class="big">
+                            <span class="top">{{ rf.description.label }}
+                                {% with rf.description as field %}
+                                    {% include "patterns/required.html" %}
+                                {% endwith %}:</span>
+                            {{ rf.description }}
+                        </label>
+                        <hr/>
+                    </fieldset>
+                {% endfor %}
+            </div>
+
+            <input type="submit" value="Add relationship"
+                   id="input_add_relationship"/>
+        </div>
+    </form>
+{% endblock %}

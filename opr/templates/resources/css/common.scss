@@ -148,6 +148,11 @@ ul.hierarchal li > ul  {
     margin-left: 20px;
 }
 
+.clearFloat {
+    clear: both;
+    margin: 0;
+}
+
 /*#############################################################################
 ::: Validation
 #############################################################################*/
@@ -433,9 +438,9 @@ input[type=submit] {
 }
 
 input.default-layout {
-    width: 200px;
+    width: 230px;
     position: absolute;
-    left: 110px;
+    left: 140px;
     top: 4px;
 }
 
@@ -457,7 +462,7 @@ label.default-layout {
     }
 }
 
-fieldset.default-fieldset {
+fieldset.default-layout {
     label {
         @extend label.default-layout;
     }
@@ -605,12 +610,12 @@ form#manage_pattern {
     .accordion {
         $accordion-border-radius: 15px;
         $accordion-border: 1px solid $darkgray;
-        h2 {
+        > h2 {
             display: block;
             height: 30px;
             background-color: $darkgreen;
-            border-left: $accordion-border;
-            border-right: $accordion-border;
+            border: $accordion-border;
+            border-top: 0;
             position: relative;
 
             background: -moz-linear-gradient(top, $lightgreen 1%, $darkgreen 100%);
@@ -634,23 +639,14 @@ form#manage_pattern {
                 top: 6px;
                 right: 13px;
 
-                display: none;
-
                 &:hover {
                     background-position: 20px 0;
-                }
-
-                a {
-                    text-indent: -9999px;
-                    font-size: 0px;
-                    display: block;
-                    height: inherit;
                 }
             }
 
             &:hover {
                 div {
-                    display: block;
+                    background-position: 20px 0;
                 }
             }
 
@@ -663,13 +659,87 @@ form#manage_pattern {
 
         > div {
             padding: 10px;
-            background-color: #fafafa;
+            background-color: #f9f9f9;
             border: $accordion-border;
+            border-top: 0;
+            position: relative;
 
             &:last-child {
                 @include bottom-left-border-radius($accordion-border-radius);
                 @include bottom-right-border-radius($accordion-border-radius);
             }
+
+            input.navbutton {
+                position: absolute;
+                right: 5px;
+                bottom: 5px;
+
+                &.previous {
+                    right: 82px;
+
+                    &.last {
+                        right: 5px;
+                    }
+                }
+            }
+
+            > p.clearFloat {
+                margin-top: 22px;
+            }
+        }
+
+        .textual-description-step {
+            .input_template_change {
+                position: absolute;
+                top: 13px;
+                left: 390px;
+            }
+            h3 {
+               font-weight: bold;
+               margin-top: 25px
+            }
+
+            div.description {
+                > div {
+                    position: relative;
+                }
+
+                textarea {
+                    width: 600px;
+                    font-size: 14px;
+                }
+
+                .markItUpPreviewFrame {
+                    position: absolute;
+                    top: 17px;
+                    width: 350px;
+                    right: 0px;
+                    height: 262px;
+                    border: 1px solid $darkgray;
+                }
+            }
+        }
+
+        .forces_consequences {
+            #input_add_driver {
+                position: absolute;
+                bottom: 5px;
+                left: 5px;
+            }
+        }
+    }
+
+    p.accordion-manage-links {
+        text-align: right;
+
+        a {
+            margin-left: 8px;
+        }
+    }
+
+    > div:last-child {
+        input {
+            float: right;
         }
     }
 }

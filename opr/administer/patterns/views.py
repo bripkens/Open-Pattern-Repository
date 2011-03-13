@@ -31,6 +31,7 @@ from django.http import HttpResponseBadRequest
 from django.utils import simplejson
 from django.shortcuts import render_to_response
 from django.shortcuts import get_object_or_404
+from django.views.decorators.csrf import csrf_exempt
 
 def add_pattern(request):
     """Add a pattern view.
@@ -182,6 +183,7 @@ def propose_tags(request, query=""):
     json = simplejson.dumps([tag.name for tag in query_result])
     return HttpResponse(json, 'application/json')
 
+@csrf_exempt
 def preview_markdown(request):
     """Provide a request parameter called data which should be run through
     the markdown filter.
@@ -190,6 +192,7 @@ def preview_markdown(request):
 
     """
     # TODO make sure that this service can't be exploited
+    # this includes the removal of the csrf_exempt decorator
 
     try:
         markdown = request.REQUEST['data']

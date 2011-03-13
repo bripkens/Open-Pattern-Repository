@@ -10,8 +10,9 @@
 // -------------------------------------------------------------------
 // Feel free to add more tags
 // -------------------------------------------------------------------
+
 mySettings = {
-    previewParserPath:    '/preview/markdown/',
+    previewParserPath:    'http://127.0.0.1:8000/preview/markdown/',
     previewParserVar: 'data',
     onShiftEnter:        {keepDefault:false, openWith:'\n\n'},
     markupSet: [
@@ -38,9 +39,9 @@ mySettings = {
         {name:'Link', key:'L', openWith:'[', closeWith:']([![Url:!:http://]!] "[![Title]!]")', placeHolder:'Your text to link here...' },
         {separator:' '},
         {name:'Quotes', openWith:'> '},
-        {name:'Code Block / Code', openWith:'(!(\t|!|`)!)', closeWith:'(!(`)!)'}//,
-        /*{separator:' '},
-        {name:'Preview', call:'preview', className:"preview"}*/
+        {name:'Code Block / Code', openWith:'(!(\t|!|`)!)', closeWith:'(!(`)!)'},
+        {separator:' '},
+        {name:'Preview', call:'preview', className:"preview"}
     ]
 }
 

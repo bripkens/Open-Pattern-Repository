@@ -34,8 +34,43 @@ $(function() {
 $(function() {
     $(".accordion > div").not(":first").hide();
 
+    var hideall = function(except) {
+        if (except == undefined) {
+            $(".accordion > div").slideUp();
+        } else {
+            $(".accordion > div").not(except).slideUp();
+        }
+
+    }
+
     $(".accordion > h2").click(function() {
         $(this).next().slideToggle();
+        return false;
+    });
+
+    $(".accordion > div > input.previous").click(function() {
+        var target = $(this).parent().prev().prev();
+        hideall(target);
+
+        target.slideDown();
+        return false;
+    });
+
+    $(".accordion > div > input.next").click(function() {
+        var target = $(this).parent().next().next();
+        hideall(target);
+
+        target.slideDown();
+        return false;
+    });
+
+    $(".accordion-manage-links > .open-all").click(function() {
+        $(this).parent().prev(".accordion").children("div").slideDown();
+        return false;
+    });
+
+    $(".accordion-manage-links > .close-all").click(function() {
+        $(this).parent().prev(".accordion").children("div").slideUp();
         return false;
     });
 });
@@ -176,10 +211,11 @@ opr.managePattern.containsTag = function(tag) {
  ::: Manage pattern select / change template
  ############################################################################*/
 $(function() {
-    // TODO only apply this when the user is on the manage pattern page
     $("#change_template").click(opr.managePattern.changeTemplate);
 
-    $(".textual_description .description textarea").markItUp(mySettings);
+    if (typeof mySettings != "undefined") {
+        $(".textual_description .description textarea").markItUp(mySettings);
+    }
 });
 
 opr.managePattern.changeTemplate = function() {
@@ -191,11 +227,11 @@ opr.managePattern.changeTemplate = function() {
         return false;
     }
 
+    var descriptionBox = $(this).siblings(".description-box");
+
     var url = opr.settings.urls.retrieveTemplate.replace("{0}", selectedValue);
     opr.cachedJSONRequest(url, {}, function(data) {
         // TODO error handling (template retrieval failed)
-
-        var descriptionBox = $(".textual_description");
 
         // remove previous text input components
         descriptionBox.find(".description").remove();
@@ -211,7 +247,7 @@ opr.managePattern.changeTemplate = function() {
             var innerBox = document.createElement("div");
             innerBox.className = "description";
 
-            var heading = document.createElement("h2");
+            var heading = document.createElement("h3");
             $(heading).text(component.name);
             innerBox.appendChild(heading);
 
@@ -258,7 +294,7 @@ $(function() {
         });
     }
 
-    $("div.forces_consequences > div.entry > " +
+    $("div.forces_consequences > div.entries > " +
             "fieldset").each(function() {
 
         addslider($(this).find("label:eq(1) > select").get(0));

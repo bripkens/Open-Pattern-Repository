@@ -453,10 +453,12 @@
 			function renderPreview() {		
 				var phtml;
 				if (options.previewParserPath !== '') {
+                    data = {};
+                    data[options.previewParserVar] = $$.val();
 					$.ajax( {
 						type: 'POST',
 						url: options.previewParserPath,
-						data: options.previewParserVar+'='+encodeURIComponent($$.val()),
+						data: data,
 						success: function(data) {
 							writeInPreview( localize(data, 1) );
 						}
