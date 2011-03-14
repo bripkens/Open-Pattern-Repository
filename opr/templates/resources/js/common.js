@@ -73,7 +73,30 @@ $(function() {
         $(this).parent().prev(".accordion").children("div").slideUp();
         return false;
     });
+
+    $(".accordion").each(function() {
+        opr.accordion.openWithErrors($(this));
+    });
 });
+
+opr.accordion = {
+    openWithErrors : function(accordion) {
+        var anythingOpen = false;
+
+        accordion.children("div").each(function() {
+            if ($(this).find(".val-show").length != 0) {
+                $(this).show();
+                anythingOpen = true;
+            } else {
+                $(this).hide();
+            }
+        });
+
+        if (!anythingOpen) {
+            accordion.children("div:first").show();
+        }
+    }
+}
 
 /*#############################################################################
  ::: Manage pattern add / remove tag behaviour
@@ -396,3 +419,24 @@ opr.cloneFormSet = function(selector, type) {
     $(selector).after(newElement);
     return newElement;
 }
+
+/*#############################################################################
+ ::: Validation
+ ############################################################################*/
+//String.prototype.trim = function
+
+$(function() {
+    opr.validation.init();
+});
+
+opr.validation = {};
+opr.validation.init = function() {
+    // TODO actually do something with the validation meta information
+    // do some parts of the validation on the client side
+    $(".val-constraints").each(function() {
+        var constraint = $(this);
+        $(this).siblings(":input").change(function() {
+            constraint.fadeOut();
+        });
+    });
+};
