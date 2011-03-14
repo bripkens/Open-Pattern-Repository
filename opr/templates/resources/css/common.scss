@@ -72,6 +72,9 @@ $darkgray: #414141;
 .icon-bug {
     @include sprite-base(url(../img/bug.png), 0, 0, 46px, 41px);
 }
+.icon-open-source {
+    @include sprite-base(url(../img/open-source.png), 0, 0, 45px, 37px);
+}
 
 /*#############################################################################
 ::: CSS reset; http://meyerweb.com/eric/tools/css/reset/
@@ -151,17 +154,6 @@ ul.hierarchal li > ul  {
 .clearFloat {
     clear: both;
     margin: 0;
-}
-
-/*#############################################################################
-::: Validation
-#############################################################################*/
-.val-show {
-    display: block;
-}
-
-.val-hide {
-    display: none;
 }
 
 /*#############################################################################
@@ -365,6 +357,15 @@ header.page {
         float: left;
         font-size: 0.9em;
 
+        > div {
+            clear: both;
+            padding-top: 3px;
+
+            &:first-child {
+                padding: 0;                                
+            }
+        }
+
         h1 {
             margin: 0.7em 0 0.5em;
         }
@@ -461,7 +462,7 @@ input.default-layout {
 label.default-layout {
     position: relative;
     display: block;
-    line-height: 30px;
+    line-height: 35px;
 
     &.big {
         height: 120px;
@@ -482,6 +483,12 @@ label.default-layout {
         left: 139px;
         top: 3px;
     }
+
+    .val-constraints {
+        position: absolute;
+        top: 4px;
+        left: 390px;
+    }
 }
 
 fieldset.default-layout {
@@ -490,141 +497,37 @@ fieldset.default-layout {
     }
 }
 
+.val-constraints {
+    display: none;
+    @include border-radius(5px);
+    border: 1px solid #CD0A0A;
+    background: #B81900 url(../img/error-bg.png);
+    color: white;
+    font-size: 0.9em;
+
+    &.val-show {
+        display: block;
+    }
+
+    &:hover {
+        z-index: 1000;
+    }
+
+    li {
+        list-style: square;
+        margin-left: 25px;
+        padding-right: 8px;
+        display: none;
+        line-height: 1.6em;
+
+        &.val-show {
+            display: list-item;
+        }
+    }
+}
 
 /*#############################################################################
 ::: Manage pattern
-#############################################################################*/
-/*form#manage_pattern {*/
-    /*#page_right {*/
-        /*input#save_pattern {*/
-            /*position: absolute;*/
-            /*bottom: -16px;*/
-            /*right: 5px;*/
-        /*}*/
-        /*a#delete_pattern {*/
-            /*position: relative;*/
-            /*top: 10px;*/
-        /*}*/
-        /*h1#tagheading {*/
-            /*margin-top: 1.5em;*/
-        /*}*/
-
-        /*.content_tags {*/
-            /*input[type=text] {*/
-                /*position: relative;*/
-                /*left: 15px;*/
-                /*width: 200px;*/
-            /*}*/
-
-            /*input[type=submit] {*/
-                /*position: relative;*/
-                /*left: 20px;*/
-            /*}*/
-
-            /*ul {*/
-                /*max-height: 150px;*/
-                /*overflow-y: auto;*/
-
-                 /*li {*/
-                    /*float: left;*/
-                    /*margin-right: 25px;*/
-                    /*white-space: nowrap;*/
-                    /*line-height: 1.5em;*/
-                    /*position: relative;*/
-
-                    /*a {*/
-                        /*font-size: 0;*/
-                        /*text-indent: -9999px;*/
-                        /*width: 10px;*/
-                        /*height: 10px;*/
-                        /*position: absolute;*/
-                        /*background-image: url(../img/remove-10x10.png);*/
-                        /*background-position: -10px 0;*/
-                        /*background-repeat: no-repeat;*/
-                        /*margin: 2px 0 0 3px;*/
-                        /*cursor: pointer;*/
-                        /*top: 2px;*/
-
-                        /*&:hover {*/
-                            /*background-position: 0 0;*/
-                        /*}*/
-                    /*}*/
-                /*}*/
-            /*}*/
-
-            /*a.propose_tags {*/
-                /*position: relative;*/
-                /*left: 5px;*/
-            /*}*/
-        /*}*/
-
-        /*.category_out ul li > ul{*/
-            /*margin-left: 10px;*/
-        /*}*/
-    /*}*/
-
-    /*#page_left {*/
-        /*.textual_description {*/
-            /*position: relative;*/
-
-            /*label {*/
-                /*position: absolute;*/
-                /*top: 0px;*/
-                /*right: 70px;*/
-
-                /*select {*/
-                    /*max-width: 200px;*/
-                /*}*/
-            /*}*/
-            /*.input_template_change {*/
-                /*position: absolute;*/
-                /*top: 0px;*/
-                /*right: 0px;*/
-            /*}*/
-            /*h2 {*/
-                /*font-weight: bold;*/
-                /*font-size: 1.1em;*/
-            /*}*/
-        /*}*/
-    /*}*/
-
-    /*.forces_consequences, .relationships {*/
-        /*clear: both;*/
-        /**/
-        /*h1 {*/
-            /*margin-bottom: 0.4em;*/
-            /*padding-top: 20px;*/
-        /*}*/
-        /*fieldset {*/
-            /*$padding-right: 40px;*/
-            /*padding: 5px $padding-right 5px 0;*/
-            /*width: $page_width / 2 - $padding-right;*/
-            /*padding-right: $padding-right;*/
-            /*float: left;*/
-            /*@extend fieldset.default-fieldset;*/
-
-            /*label select {*/
-                /*left: 150px;*/
-            /*}*/
-
-            /*.ui-slider {*/
-                /*width: 200px;*/
-                /*margin: 3px 0 5px 0;*/
-                /*left: 150px;*/
-
-
-            /*}*/
-        /*}*/
-        /**/
-        /*input[type=submit] {*/
-            /*clear: left;*/
-            /*display: block;*/
-        /*}*/
-    /*}*/
-/*}*/
-
-/*#############################################################################
-::: Manage pattern v2
 #############################################################################*/
 form#manage_pattern {
     textarea {
@@ -713,6 +616,10 @@ form#manage_pattern {
         }
 
         .textual-description-step {
+            .input_template_label .val-constraints {
+                left: 450px;
+            }
+
             .input_template_change {
                 position: absolute;
                 top: 13px;
@@ -724,6 +631,8 @@ form#manage_pattern {
             }
 
             div.description {
+                position: relative;
+
                 > div {
                     position: relative;
                 }
@@ -742,6 +651,12 @@ form#manage_pattern {
                     border: 1px solid $darkgray;
                     background-image: url(../img/preview-tile.png);
                 }
+
+                .val-constraints {
+                    top: 17px;
+                    position: absolute;
+                    right: 380px;
+                }
             }
         }
 
@@ -755,7 +670,7 @@ form#manage_pattern {
                         position: absolute;
                         left: 380px;
                         width: 230px;
-                        top: 51px;
+                        top: 55px;
 
                         .ui-widget-header {
                             background: url(../img/impact-gradient-230.png);
@@ -767,7 +682,7 @@ form#manage_pattern {
                         padding-top: 0;
 
                         .ui-slider {
-                            top: 42px;
+                            top: 46px
                         }
                     }
                 }
