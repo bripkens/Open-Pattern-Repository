@@ -2,7 +2,7 @@
 ::: Vars
 #############################################################################*/
 $page_width: 1000px;
-$page_sidebar_width: 320px;
+$page_sidebar_width: 380px;
 
 $lightgreen: #48A659;
 $darkgreen: #3D8E4C;
@@ -74,6 +74,21 @@ $darkgray: #414141;
 }
 .icon-open-source {
     @include sprite-base(url(../img/open-source.png), 0, 0, 45px, 37px);
+}
+.icon-tag {
+    @include sprite-base(url(../img/tag.png), 0, 0, 43px, 43px);
+}
+.icon-info {
+    @include sprite-base(url(../img/info.png), 0, 0, 42px, 42px);
+}
+.icon-sources {
+    @include sprite-base(url(../img/sources.png), 0, 0, 43px, 43px);
+}
+.icon-file {
+    @include sprite-base(url(../img/file.png), 0, 0, 38px, 43px);
+}
+.icon-html5 {
+    @include sprite-base(url(../img/html5-logo.png), 0, 0, 46px, 64px);
 }
 
 /*#############################################################################
@@ -154,6 +169,10 @@ ul.hierarchal li > ul  {
 .clearFloat {
     clear: both;
     margin: 0;
+}
+
+.italics {
+    font-style: italic;
 }
 
 /*#############################################################################
@@ -406,7 +425,7 @@ header.page {
 
     .float_icon {
         float: left;
-        padding: 0 6px 3px;
+        margin: 0 6px 3px;
     }
 }
 
@@ -450,6 +469,11 @@ input[type=submit] {
     color: white;
     font-weight: bold;
     font-size: 12px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: $lightgreen;
+    }
 }
 
 input.default-layout {
@@ -780,5 +804,109 @@ form#manage_pattern {
         input {
             float: right;
         }
+    }
+}
+/*#############################################################################
+::: Pattern details
+#############################################################################*/
+#pattern_details {
+    #page_right {
+        .relationships {
+            .relationship {
+                > span > span {
+                    font-style: italic;
+                    color: $darkgreen;
+                }
+                > div {
+                    margin-left: 15px;
+                }
+    
+                border-top: 1px dashed $darkgray;
+                padding-top: 8px;
+
+                &:first-child {
+                    border: 0;
+                    padding-top: 0;
+                }
+            }
+        }
+
+        .driver {
+            > div {
+                clear: both;
+                padding-top: 10px;
+
+                &:first-child {
+                    padding-top: 0px;
+                }
+            }
+
+            .smaller {
+                color: $darkgray;
+                font-style: italic;
+            }
+        }
+    }
+}
+
+.impact-indicator {
+    height: 24px;
+    width: 58px;
+
+    background-image: url(../img/impact-indicator-grayscale.png);
+    background-repeat: no-repeat;
+
+    div {
+        height: inherit;
+        background-image: url(../img/impact-indicator.png);
+        background-repeat: no-repeat;
+
+        @include transition(all 0.5s ease-in-out);
+
+        opacity: 0.5;
+
+        &.level-1 {
+            width: 4px;
+        }
+
+        &.level-2 {
+            width: 10px;
+        }
+
+        &.level-3 {
+            width: 16px;
+        }
+
+        &.level-4 {
+            width: 22px;
+        }
+
+        &.level-5 {
+            width: 28px;
+        }
+
+        &.level-6 {
+            width: 34px;
+        }
+
+        &.level-7 {
+            width: 40px;
+        }
+
+        &.level-8 {
+            width: 46px;
+        }
+
+        &.level-9 {
+            width: 52px;
+        }
+
+        &.level-10 {
+            width: 58px;
+        }
+    }
+
+    &:hover div {
+        opacity: 1;
     }
 }

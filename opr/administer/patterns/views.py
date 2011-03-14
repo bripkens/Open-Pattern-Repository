@@ -68,7 +68,7 @@ def add_pattern(request):
     }
     context.update(csrf(request))
 
-    return render_to_response('patterns/manage_pattern.html', context)
+    return render_to_response('patterns/manage.html', context)
 
 def get_template(request, mainForm):
     """Utility function that will try to return the template that is

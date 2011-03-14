@@ -48,7 +48,7 @@ def browse_categories(request, categoryName=None):
 
     result.extend(Pattern.objects.filter(categories=None))
 
-    return render_to_response('patterns/browse_patterns.html', {
+    return render_to_response('patterns/browse.html', {
         'data': result
         })
 
@@ -81,14 +81,18 @@ def add_category(category, list):
 def view_pattern(request, wiki_name):
     """View details for a given pattern.
 
-    TODO what about a generic view for this?
-    A generic view may not be appropriate as the newest version needs to be
-    determined
+    No generic view is used as the current version would need to be
+    calculated every time in the template.
 
     """
     pattern = get_object_or_404(Pattern, wiki_name__iexact=wiki_name)
     version = pattern.get_current_version()
-    return HttpResponse(version)
+
+    return render_to_response("patterns/details.html", {
+        'p' : pattern,
+        'v' : version,
+        'active' : 1
+    })
 
 def with_tag(request, tag):
     """Retrieve a list of patterns that have the given tag.

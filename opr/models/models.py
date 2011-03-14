@@ -169,6 +169,9 @@ class TextBlock(models.Model):
 
     text = models.TextField(blank=True)
 
+    def __unicode__(self):
+        return self.text
+
 class Pattern(models.Model):
     """Pattern is a generic description for a solution...
 

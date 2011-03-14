@@ -20,8 +20,10 @@ Used icons (sets)
 ------------------
 
 ### Free for commercial use
+
 - [Onebit](http://www.icojoy.com/articles/44/ "Onebit")
 - [34aL volume 3.2 SE](http://www.iconfinder.com/browse/iconset/icojoy/ "Iconset homepage")
+- [Lovely](http://www.iconfinder.com/browse/iconset/lovely/#readme "Iconset homepage")
 
 Preview
 ------------------

@@ -53,6 +53,9 @@ $(function() {
         hideall(target);
 
         target.slideDown();
+
+        target.find(":input:visible:first").focus();
+
         return false;
     });
 
@@ -61,6 +64,9 @@ $(function() {
         hideall(target);
 
         target.slideDown();
+
+        target.find(":input:visible:first").focus();
+
         return false;
     });
 
@@ -74,13 +80,25 @@ $(function() {
         return false;
     });
 
+    $(".accordion-manage-links > .with-errors").click(function() {
+        $(this).parent().prev(".accordion").children("div").each(function() {
+            if ($(this).find(".val-show").length != 0) {
+                $(this).slideDown();
+            } else {
+                $(this).slideUp();
+            }
+        });
+
+        return false;
+    });
+
     $(".accordion").each(function() {
         opr.accordion.openWithErrors($(this));
     });
 });
 
 opr.accordion = {
-    openWithErrors : function(accordion) {
+    openWithErrors : function(accordion, openAtLeastOne) {
         var anythingOpen = false;
 
         accordion.children("div").each(function() {
@@ -92,7 +110,7 @@ opr.accordion = {
             }
         });
 
-        if (!anythingOpen) {
+        if (!anythingOpen && (openAtLeastOne === undefined || openAtLeastOne === true)) {
             accordion.children("div:first").show();
         }
     }
@@ -335,7 +353,9 @@ $(function() {
 
         $(select).parent().next(".ui-slider").next(".ui-slider").remove();
 
-        newFieldset.find(".errorlist").remove();
+        newFieldset.find(".val-show").removeClass("val-show");
+
+        newFieldset.find(":input:visible:first").focus();
 
         return false;
     });
@@ -347,7 +367,10 @@ $(function() {
 $(function() {
     $("#input_add_relationship").click(function() {
         var lastFieldset = $(".relationships fieldset:last");
-        opr.cloneFormSet(lastFieldset, 'relationships');
+        var newFieldset = opr.cloneFormSet(lastFieldset, 'relationships');
+
+        newFieldset.find(":input:visible:first").focus();
+
         return false;
     });
 });
@@ -423,8 +446,6 @@ opr.cloneFormSet = function(selector, type) {
 /*#############################################################################
  ::: Validation
  ############################################################################*/
-//String.prototype.trim = function
-
 $(function() {
     opr.validation.init();
 });
@@ -435,8 +456,10 @@ opr.validation.init = function() {
     // do some parts of the validation on the client side
     $(".val-constraints").each(function() {
         var constraint = $(this);
-        $(this).siblings(":input").change(function() {
-            constraint.fadeOut();
+        $(this).parent().find(":input").change(function() {
+            constraint.fadeOut(function() {
+                constraint.add(".val-show", constraint).removeClass("val-show");
+            });
         });
     });
 };
