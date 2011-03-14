@@ -4,12 +4,12 @@ __authors__ = [
         '"Ben Ripkens" <bripkens.dev@gmail.com>',
 ]
 
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import NoArgsCommand
 import os
 import time
 import datetime
 
-class Command(BaseCommand):
+class Command(NoArgsCommand):
     """
     Watch for changes in the common.scss file and convert it to common.css
     using sass. Sass needs to be on the path.
@@ -19,7 +19,7 @@ class Command(BaseCommand):
     """
     help = 'Convert scss to css'
 
-    def handle(self, *args, **options):
+    def handle_noargs(self, **options):
         scss = os.path.abspath("templates/resources/css/common.scss")
         css = os.path.abspath("templates/resources/css/common.css")
 

@@ -87,6 +87,7 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'django.contrib.markup',
     'tagging',
+    'haystack',
     'opr.models',
     'opr.browse.patterns',
     'opr.administer.patterns',
@@ -95,6 +96,9 @@ INSTALLED_APPS = (
     'opr.commands',
     'ajaxvalidation'
 )
+
+HAYSTACK_SITECONF = 'opr.search_sites'
+HAYSTACK_SEARCH_ENGINE = 'solr'
 
 # Local development settings should be stored in the local_settings module
 try:

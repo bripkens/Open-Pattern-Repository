@@ -10,6 +10,9 @@ Dependencies
 - [django-tagging](http://code.google.com/p/django-tagging/ "django-tagging homepage")
 - [python-markdown](http://www.freewisdom.org/projects/python-markdown/ "python-markdown homepage")
 - [Sass](http://sass-lang.com/ "Sass homepage")
+- [Haystack](http://haystacksearch.org/ "Project homepage")
+- [Apache Solr 1.4.1](http://lucene.apache.org/solr/ "Project hosted on apache.org")
+- [pysolr](http://pypi.python.org/pypi/pysolr/ "pysolr homepage")
 
 
 Django commands

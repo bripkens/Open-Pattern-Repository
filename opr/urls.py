@@ -36,7 +36,8 @@ urlpatterns += patterns('',
    (r'^', include('opr.browse.patterns.urls')),
    (r'^api/(?P<emitter_format>[a-zA-Z]+)/', include('opr.api.urls')),
    (r'^admin/doc/', include('django.contrib.admindocs.urls')),
-   (r'^admin/', include(admin.site.urls)),)
+   (r'^admin/', include(admin.site.urls)),
+   (r'^search/', include('haystack.urls')),)
 
 if settings.DEBUG:
     urlpatterns += patterns('',
