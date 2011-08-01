@@ -17,7 +17,7 @@ Dependencies
 
 Django commands
 ------------------
-Use the *watchsass* command to convert the file *common.scss* to *common.css*. This command won't exist immediately but instead will watch for changes and convert on ever change.
+Use the *watchsass* command to convert the file *common.scss* to *common.css*. This command won't exit immediately but instead will watch for changes and convert on every change.
 
 Used icons (sets)
 ------------------
