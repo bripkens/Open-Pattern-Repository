@@ -810,6 +810,77 @@ form#manage_pattern {
 ::: Pattern details
 #############################################################################*/
 #pattern_details {
+    #page_left {
+        text-align: justify;
+
+        > span {
+            color: $darkgray;
+            font-style: italic;
+            position: relative;
+            top: -18px;
+            font-size: 0.9em;
+        }
+
+        .toc {
+            float: right;
+            padding: 7px 10px 7px 35px;
+            margin: 10px 0px 0px 20px;
+            font-size: 0.9em;
+            background-color: #EFEFEF;
+            width: auto;
+            border: 1px solid $darkgray;
+            @include border-radius(15px);
+            line-height: 1.7em;
+
+            > h2 {
+                font-weight: bold;
+            }
+
+            li {
+                list-style-type: decimal;
+            }
+        }
+        
+        .description-out {
+            > h2 {
+                font-size: 1.1em;
+                font-weight: bold;
+
+                a {
+                    width: 15px;
+                    height: 15px;
+                    position: relative;
+                    background-image: url(../img/arrow_up.png);
+                    text-indent: -9999px;
+                    font-size: 0px;
+                    display: inline-block;
+                    top: 2px;
+                    left: 10px;
+
+                    &:hover {
+                        background-position: 15px 0;
+                    }
+                }
+            }
+
+            ul {
+                list-style-type: disc;
+                padding: 10px 0 10px 25px;
+            }
+
+            ol {
+                list-style-type: decimal;
+            }
+
+            em {
+                font-style: italic;
+            }
+
+            strong {
+                font-weight: bold;
+            }
+        }
+    }
     #page_right {
         .relationships {
             .relationship {

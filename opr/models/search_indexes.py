@@ -10,7 +10,9 @@ from haystack import site
 from opr.models.models import *
 
 
-class PatternIndex(SearchIndex):
+class PatternIndex(RealTimeSearchIndex):
+    # TODO queue search index updates to improve performance
+    
     text = CharField(document=True, use_template=True)
     title = CharField(model_attr='name')
     wiki_name = CharField(model_attr='wiki_name')

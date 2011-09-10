@@ -9,19 +9,37 @@
 {% endblock %}
 
 {% block left %}
-<div id="pattern_details">
-    <h1>{{ p.name }}</h1>
-    <span>Last update on {{ v.documented_when }}</span>
+<h1>{{ p.name }}</h1>
+<span>Last update on {{ v.documented_when }}</span>
 
+<nav class="toc">
+    <h2>Contents</h2>
+    <ol>
+        {% for description in v.description.all %}
+            <li>
+                <a href="#description{{ description.component.id }}"
+                   title="Navigate to the section">
+                    {{ description.component.name }}
+               </a>
+            </li>
+        {% endfor %}
+    </ol>
+</nav>
+
+<div class="description-out">
     {% for description in v.description.all %}
         <h2>
             {{ description.component.name }}
-            <a name="description{{ description.component.id }}"></a>
+            <a name="description{{ description.component.id }}" href="#top"></a>
         </h2>
         {{ description|markdown }}
     {% endfor %}
 </div>
 {% endblock %}
+
+
+
+
 
 {% block right %}
     <div>
