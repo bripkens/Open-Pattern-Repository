@@ -1,0 +1,8 @@
+<p>
+  <%= f.text_area :description, :rows => 3 %><br />
+  <%= f.label :relationship_type_id %>
+  <%= f.collection_select :relationship_type_id, @relationship_types, :id, :title, :prompt => true %><br />
+  <%= f.label :target_id %>
+  <%= f.collection_select :target_id, @possible_relationship_targets, :id, :title, :prompt => true %><br />
+  <%= link_to_remove_fields 'remove', f %>
+</p>

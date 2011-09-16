@@ -1,0 +1,37 @@
+<%= form_for(@pattern) do |f| %>
+  <% if @pattern.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@pattern.errors.count, "error") %> prohibited this pattern from being saved:</h2>
+
+      <ul>
+      <% @pattern.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :slug %><br />
+    <%= f.text_field :slug %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_area :description, :rows => 6%>
+  </div>
+
+  <div class="field">
+    <%= f.fields_for :outgoing_relationships do |builder| %>
+      <%= render "outgoing_relationship_fields", :f => builder %>
+    <% end %>
+  </div>
+  <%= link_to_add_fields 'Add relationship', f, :outgoing_relationships %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

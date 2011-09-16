@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Title:</b>
+  <%= @relationship_type.title %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @relationship_type.description %>
+</p>
+
+
+<%= link_to 'Edit', edit_relationship_type_path(@relationship_type) %> |
+<%= link_to 'Back', relationship_types_path %>
