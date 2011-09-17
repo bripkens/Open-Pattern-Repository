@@ -1,8 +1,17 @@
-<p>
-  <%= f.text_area :description, :rows => 3 %><br />
-  <%= f.label :relationship_type_id %>
-  <%= f.collection_select :relationship_type_id, @relationship_types, :id, :name, :prompt => true %><br />
-  <%= f.label :target_id %>
-  <%= f.collection_select :target_id, @possible_relationship_targets, :id, :name, :prompt => true %><br />
+<fieldset class="default-layout">
+  <label>
+    Target <span title="required" class="required">*</span> :
+    <%= f.collection_select :target_id, @possible_relationship_targets, :id, :name, :prompt => true %><br />
+  </label>
+
+  <label>
+    Type <span title="required" class="required">*</span> :
+    <%= f.collection_select :relationship_type_id, @relationship_types, :id, :name, :prompt => true %><br />
+  </label>
+
+  <label class="big">
+    <span class="top">Description</span>
+    <%= f.text_area :description %>
+  </label>
   <%= link_to_remove_fields 'remove', f %>
-</p>
+</fieldset>

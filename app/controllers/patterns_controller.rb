@@ -90,6 +90,12 @@ class PatternsController < ApplicationController
 
   def load_necessary_create_update_fields
     @relationship_types = RelationshipType.all
-    @possible_relationship_targets = Pattern.find(:all, :conditions => ['id != ?', @pattern.id])
+
+    if @pattern.new_record?
+      @possible_relationship_targets = Pattern.all
+    else
+      @possible_relationship_targets = Pattern.find(:all,
+                                                    :conditions => ['id != ?', @pattern.id])
+    end
   end
 end

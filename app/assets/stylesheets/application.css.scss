@@ -497,10 +497,26 @@ label.default-layout {
         top: 3px;
     }
 
-    .val-constraints {
+    .errors {
         position: absolute;
         top: 4px;
         left: 390px;
+        @include border-radius(5px);
+        border: 1px solid #CD0A0A;
+        background: #B81900 url(error-bg.png);
+        color: white;
+        font-size: 0.9em;
+
+        &:hover {
+            z-index: 1000;
+        }
+
+        li {
+            list-style: square;
+            margin-left: 25px;
+            padding-right: 8px;
+            line-height: 1.6em;
+        }
     }
 }
 
@@ -510,31 +526,27 @@ fieldset.default-layout {
     }
 }
 
-.val-constraints {
-    display: none;
-    @include border-radius(5px);
+form > .errors {
+    margin: 10px auto;
     border: 1px solid #CD0A0A;
-    background: #B81900 url(error-bg.png);
-    color: white;
-    font-size: 0.9em;
+    $radius: 10px;
+    @include border-radius($radius);
 
-    &.val-show {
-        display: block;
+    h2 {
+        padding: 5px 10px;
+        border-bottom: 1px solid #CD0A0A;
+        @include top-left-border-radius($radius);
+        @include top-right-border-radius($radius);
+        background: #B81900 url(error-bg.png);
+        color: white;
+        font-weight: bold;
     }
 
-    &:hover {
-        z-index: 1000;
-    }
+    ul {
+        margin: 10px 0 10px 30px;
 
-    li {
-        list-style: square;
-        margin-left: 25px;
-        padding-right: 8px;
-        display: none;
-        line-height: 1.6em;
-
-        &.val-show {
-            display: list-item;
+        li {
+            list-style: square;
         }
     }
 }

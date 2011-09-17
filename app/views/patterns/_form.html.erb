@@ -1,37 +1,155 @@
-<%= form_for(@pattern) do |f| %>
-  <% if @pattern.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@pattern.errors.count, "error") %> prohibited this pattern from being saved:</h2>
+<%= form_for(@pattern, :html => {:id => 'manage_pattern'}) do |f| %>
 
-      <ul>
-      <% @pattern.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
+<%= render 'layouts/form_required_introduction' %>
+
+<%= render 'layouts/form_errors', :errors => @pattern.errors %>
+
+<div class="accordion">
+<h2>
+  <a href="/noJs.html" title="Expand / collapse the following section">
+    General information
+  </a>
+  <div>
+  </div>
+</h2>
+
+<div>
+  <fieldset class="default-layout">
+    <label>
+      Name <%= render 'layouts/form_required_marker' %> :
+      <%= f.text_field :name %>
+      <%= render 'layouts/form_field_errors', :errors => @pattern.errors[:name] %>
+    </label>
+
+    <label>
+      Slug <%= render 'layouts/form_required_marker' %> :
+      <%= f.text_field :slug %>
+      <%= render 'layouts/form_field_errors', :errors => @pattern.errors[:slug] %>
+    </label>
+  </fieldset>
+
+  <input type="submit" value="Next step" class="navbutton next"/>
+
+  <p class="clearFloat"></p>
+</div>
+
+
+<h2>
+  <a href="/noJs.html"
+       title="Expand / collapse the following section">
+    Textual description
+  </a>
+
+  <div>
+  </div>
+</h2>
+<div class="textual-description-step">
+  <!--<label for="id_template" class="input_template_label default-layout">-->
+    <!--{{ form.template.label }}-->
+    <!--{% with form.template as field %}-->
+    <!--{% include "patterns/required.html" %}-->
+    <!--{% endwith %}:-->
+    <!--{{ form.template }}-->
+  <!--</label>-->
+
+  <!--<input id="change_template"-->
+         <!--type="submit" value="Change" class="input_template_change"/>-->
+
+  <!--<%= f.text_area :description, :rows => 6%>-->
+
+  <!--<div class="description-box">-->
+    <!--{% for field in templateRelated %}-->
+    <!--<div class="description">-->
+      <!--<h3>{{ field.label }}-->
+        <!--{% include "patterns/required.html" %}-->
+      <!--</h3>-->
+
+      <!--{{ field }}-->
+    <!--</div>-->
+    <!--{% endfor %}-->
+  <!--</div>-->
+
+
+  <input type="submit" value="Previous step" class="navbutton previous"/>
+  <input type="submit" value="Next step" class="navbutton next"/>
+
+  <p class="clearFloat"></p>
+</div>
+
+
+
+<h2>
+  <a href="/noJs.html"
+       title="Expand / collapse the following section">
+    Relationships
+  </a>
+  <div>
+  </div>
+</h2>
+<div class="relationships">
+  <div class="entries">
+    <div>
+        <%= f.fields_for :outgoing_relationships do |builder| %>
+          <%= render "outgoing_relationship_fields", :f => builder %>
+        <% end %>
+      </div>
+  </div>
+
+  <%= button_to_add_fields 'Add relationship', f, :outgoing_relationships, 'input_add_relationship' %>
+  <input type="submit" value="Previous step" class="navbutton previous"/>
+  <input type="submit" value="Next step" class="navbutton next"/>
+
+  <p class="clearFloat"></p>
+</div>
+
+
+
+<h2><a href="/noJs.html"
+       title="Expand / collapse the following section">
+  Tags
+</a>
+
+  <div>
+  </div>
+</h2>
+<div class="categories_tags">
+  <div class="hidden">
+    {{ form.tags }}
+  </div>
+
+  <div class="content_tags">
+    <fieldset>
+      <label for="input_tag" class="hidden">Add tag</label>
+      <input id="input_tag" type="text"
+             placeholder="Add tag"
+             class="tag_autocomplete"/>
+      <input id="add_tag" type="submit" value="Add"/>
+      <ul class="propose_tag_out">
+        <li></li>
       </ul>
-    </div>
-  <% end %>
+    </fieldset>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :slug %><br />
-    <%= f.text_field :slug %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_area :description, :rows => 6%>
+    <ul id="output_tag">
+    </ul>
   </div>
 
-  <div class="field">
-    <%= f.fields_for :outgoing_relationships do |builder| %>
-      <%= render "outgoing_relationship_fields", :f => builder %>
-    <% end %>
-  </div>
-  <%= link_to_add_fields 'Add relationship', f, :outgoing_relationships %>
+  <input type="submit" value="Previous step" class="navbutton previous last"/>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <p class="clearFloat"></p>
+</div>
+</div>
+<p class="accordion-manage-links">
+  <a href="/noJs.html" title="Open all" class="open-all">Open all</a>
+  <a href="/noJs.html" title="Close all" class="close-all">Close all</a>
+  <a href="/noJs.html" title="Show all with errors" class="with-errors">
+    Show all with errors
+  </a>
+</p>
+
+<div>
+  <input type="submit" value="Submit" id="in_submit_pattern"/>
+  <input type="submit" value="Cancel" id="in_cancel_pattern"/>
+  <input type="submit" value="Reset" id="in_reset_pattern"/>
+</div>
+
 <% end %>

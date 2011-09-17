@@ -27,6 +27,7 @@ $(function() {
         var new_id = new Date().getTime();
         var regexp = new RegExp('new_' + name, 'g');
         $(this).before(template.replace(regexp, new_id));
+        $(this).prev().find(":input:visible:first").focus();
         return false;
     });
 });
