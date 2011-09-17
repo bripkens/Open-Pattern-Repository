@@ -399,8 +399,9 @@ $(function() {
 opr.validation = {};
 opr.validation.init = function() {
     $("label .errors").each(function() {
+        var error = $(this);
         $(this).parent().find(":input").change(function() {
-            $(this).fadeOut();
+            error.fadeOut();
         });
     });
 };
