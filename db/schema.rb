@@ -10,7 +10,24 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110917085904) do
+ActiveRecord::Schema.define(:version => 20110917093409) do
+
+  create_table "pattern_relationships", :force => true do |t|
+    t.integer  "source_id"
+    t.integer  "target_id"
+    t.integer  "relationship_type_id"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "patterns", :force => true do |t|
+    t.string   "name"
+    t.string   "slug"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "relationship_types", :force => true do |t|
     t.string   "name"

@@ -1,4 +1,6 @@
 Opr::Application.routes.draw do
+  resources :patterns
+
   root :to => 'home#index'
 
   scope '/admin' do

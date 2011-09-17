@@ -12,17 +12,17 @@
 
 <h1>What do you want to do?</h1>
 
-<a href="/browse" title="Browse through the catalogue" class="teaser browse">
-  Browse patterns
-</a>
+<%= link_to 'Browse patterns', patterns_path,
+                        :class => 'teaser browse',
+                        :title => 'Browse through the catalogue' %>
 
 <a href="/search" title="Search for a specific pattern" class="teaser search">
   Search pattern
 </a>
 
-<a href="/pattern/add" title="Add a new pattern to the pattern catalogue" class="teaser add">
-  Add pattern
-</a>
+<%= link_to 'Add pattern', new_pattern_path,
+                        :class => 'teaser add',
+                        :title => 'Add a new pattern to the pattern catalogue' %>
 
 <% content_for :sidebar do %>
     <div>
@@ -63,7 +63,7 @@
         contribute to it if you feel the need for an additional feature. The
         project has a
         <a href="https://github.com/bripkens/Open-Pattern-Repository" title="To the source code management system">repository
-          on github.</a> 
+          on github</a>.
       </p>
     </div>
 <% end %>

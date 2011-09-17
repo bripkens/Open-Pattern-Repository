@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  source_id: 1
+  target_id: 1
+  relationship_type_id: 1
+  description: MyText
+
+two:
+  source_id: 1
+  target_id: 1
+  relationship_type_id: 1
+  description: MyText

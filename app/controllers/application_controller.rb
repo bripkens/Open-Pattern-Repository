@@ -10,8 +10,7 @@ class ApplicationController < ActionController::Base
   end
 
   def admin?
-    true
-    #authorized? && @current_user.admin?
+    authorized? && @current_user.admin?
   end
 
   def editor?

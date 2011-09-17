@@ -29,11 +29,9 @@
                         :title => 'Go to the landing page.' %>
         </li>
         <li>
-          <a accesskey='2' href='/browse'
-             class='<%= get_active_page_class(:browse) %>'
-             title='Browse through the patterns'>
-            Browse
-          </a>
+          <%= link_to 'Browse', patterns_path, :accesskey => '2',
+                        :class => get_active_page_class(:browse),
+                        :title => 'Browse through the patterns' %>
         </li>
         <li>
           <a accesskey='3' href='/search'
@@ -43,11 +41,9 @@
           </a>
         </li>
         <li>
-          <a accesskey='4' href='/pattern/add'
-             class='<%= get_active_page_class(:add) %>'
-             title='Add a new pattern'>
-            Add
-          </a>
+          <%= link_to 'Add', new_pattern_path, :accesskey => '4',
+                        :class => get_active_page_class(:add),
+                        :title => 'Add a new pattern' %>
         </li>
         <li>
           <a accesskey='5' href='/'
@@ -87,5 +83,6 @@
 
   <%= yield(:after_content) %>
 </div>
+<%= render_field_templates() %>
 </body>
 </html>

@@ -1,0 +1,30 @@
+<% title 'Browse patterns' %>
+<% set_active_page :browse %>
+
+<h1>Listing patterns</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Slug</th>
+    <th>Description</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @patterns.each do |pattern| %>
+  <tr>
+    <td><%= pattern.name %></td>
+    <td><%= pattern.slug %></td>
+    <td><%= pattern.description %></td>
+    <td><%= link_to 'Show', pattern %></td>
+    <td><%= link_to 'Edit', edit_pattern_path(pattern) %></td>
+    <td><%= link_to 'Destroy', pattern, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Pattern', new_pattern_path %>

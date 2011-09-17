@@ -1,0 +1,48 @@
+<% title @pattern.name %>
+<% set_active_page :browse %>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @pattern.name %>
+</p>
+
+<p>
+  <b>Slug:</b>
+  <%= @pattern.slug %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @pattern.description %>
+</p>
+
+<p>
+  <b>Outgoing relationships:</b>
+  <ul>
+    <% @pattern.outgoing_relationships.each do |relationship| %>
+    <li>
+      &lt;&lt;<%= relationship.relationship_type.name %>&gt;&gt;<br />
+      Target: <%= link_to relationship.target.name, relationship.target %><br />
+      <%= relationship.description %>
+    </li>
+    <% end %>
+  </ul>
+</p>
+
+<p>
+  <b>Incoming relationships:</b>
+  <ul>
+    <% @pattern.incoming_relationships.each do |relationship| %>
+    <li>
+      &lt;&lt;<%= relationship.relationship_type.name %>&gt;&gt;<br />
+      Source: <%= link_to relationship.source.name, relationship.source %><br />
+      <%= relationship.description %>
+    </li>
+    <% end %>
+  </ul>
+</p>
+
+<%= link_to 'Edit', edit_pattern_path(@pattern) %> |
+<%= link_to 'Back', patterns_path %>
