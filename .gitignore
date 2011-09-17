@@ -1,9 +1,6 @@
 ####################################
 # ::: Project related
 ####################################
-# default location for development solr instance
-apache-solr-1.4.1
-
 # previous OPR version
 old-opr
 
@@ -18,23 +15,20 @@ old-opr
 ####################################
 # ::: Rails
 ####################################
-*.sassc
-.sass-cache
 *.rbc
 *.sassc
 .sass-cache
 capybara-*.html
 .rspec
-.bundle
-opr/vendor/bundle
-opr/log/*
-opr/tmpi/*
-opr/pr/
-opr/db/*.sqlite3
-opr/public/system/*
-opr/coverage/
-opr/spec/tmp/*
+/.bundle
+/vendor/bundle
+/log/*
+/tmp/*
+/db/*.sqlite3
+/public/system/*
+/coverage/
+/spec/tmp/*
 **.orig
-opr/config/*.yml
+config/*.yml
 rerun.txt
 pickle-email-*.html
