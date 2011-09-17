@@ -7,7 +7,7 @@ module LayoutHelper
     @active_page = page_title
   end
 
-  def active_page?(page_title)
-    @active_page == page_title ? 'active' : ''
+  def get_active_page_class(page_title, klass='active')
+    @active_page == page_title ? klass : ''
   end
 end

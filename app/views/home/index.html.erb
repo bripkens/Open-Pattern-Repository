@@ -1,5 +1,69 @@
 <% title 'Welcome' %>
 <% set_active_page :start %>
 
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<h1>Welcome to the Open Pattern Repository</h1>
+<p>The Open Pattern Repository is a publicly available and freely usable online
+  repository for software engineering patterns and software technologies like
+  frameworks and libraries. Feel free to use, feel free to contribute, feel free
+  to comment.</p>
+<p>If this is the first time you are visiting the OPR, please refer to the Learn
+  more menu item for tutorials. Of course you may also just start browsing and
+  searching</p>
+
+<h1>What do you want to do?</h1>
+
+<a href="/browse" title="Browse through the catalogue" class="teaser browse">
+  Browse patterns
+</a>
+
+<a href="/search" title="Search for a specific pattern" class="teaser search">
+  Search pattern
+</a>
+
+<a href="/pattern/add" title="Add a new pattern to the pattern catalogue" class="teaser add">
+  Add pattern
+</a>
+
+<% content_for :sidebar do %>
+    <div>
+      <h1>Version 0.1-SNAPSHOT</h1>
+
+      <div class="float_icon icon-alert-yellow"></div>
+
+      <p>This is a preview snapshot version of the OPR. If you have questions or
+        suggestions send a mail to info@patternrepository.org</p>
+    </div>
+
+    <div>
+      <h1>Found a bug? Request a feature?</h1>
+
+      <div class="float_icon icon-bug"></div>
+
+      <p>Please refer to the
+        <a href="https://github.com/bripkens/Open-Pattern-Repository/issues" title="Navigate to the bugtracker on github">bugtracker</a>.
+      </p>
+    </div>
+
+    <div>
+      <h1>Using latest technologies</h1>
+
+      <div class="float_icon icon-html5"></div>
+
+      <p>This website makes use of the latest web technologies. Some browsers
+        may not display this website properly. Please make sure that your
+        browser is up-to-date to get the best user experience.</p>
+    </div>
+
+    <div>
+      <h1>Open source software</h1>
+
+      <div class="float_icon icon-open-source"></div>
+
+      <p>The Open Pattern Repository is completely open source, licensed under the MIT license. You can
+        contribute to it if you feel the need for an additional feature. The
+        project has a
+        <a href="https://github.com/bripkens/Open-Pattern-Repository" title="To the source code management system">repository
+          on github.</a> 
+      </p>
+    </div>
+<% end %>

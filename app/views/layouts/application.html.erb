@@ -7,7 +7,7 @@
     Open Pattern Repository
   </title>
   <%= stylesheet_link_tag 'application' %>
-  <link rel='shortcut icon' href='assets/favicon.png' type='image/png' />
+  <link rel='shortcut icon' href='/assets/favicon.png' type='image/png' />
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
 </head>
@@ -17,51 +17,75 @@
   <div class='header_indention'>
     <h1>
       <a href='/' title='Go to the landing page.'>
-        <img src='assets/logo.png' alt='multiple hexagons'/>
+        <img src='/assets/logo.png' alt='multiple hexagons'/>
         <span>Open Pattern Repository</span>
       </a>
     </h1>
     <nav>
       <ul>
         <li>
-          <a accesskey='1' href='/' class='<%= active_page?(:start) %>'
-             title='Go to the landing page.'>
-            Start
-          </a>
+          <%= link_to 'Start', root_path, :accesskey => '1',
+                        :class => get_active_page_class(:start),
+                        :title => 'Go to the landing page.' %>
         </li>
         <li>
-          <a accesskey='2' href='/browse' class='<%= active_page?(:browse) %>'
+          <a accesskey='2' href='/browse'
+             class='<%= get_active_page_class(:browse) %>'
              title='Browse through the patterns'>
             Browse
           </a>
         </li>
         <li>
-          <a accesskey='3' href='/search' class='<%= active_page?(:search) %>'
+          <a accesskey='3' href='/search'
+             class='<%= get_active_page_class(:search) %>'
              title='Search for patterns'>
             Search
           </a>
         </li>
         <li>
-          <a accesskey='4' href='/pattern/add' class='<%= active_page?(:add) %>'
+          <a accesskey='4' href='/pattern/add'
+             class='<%= get_active_page_class(:add) %>'
              title='Add a new pattern'>
             Add
           </a>
         </li>
         <li>
-          <a accesskey='5' href='/' class='<%= active_page?(:learn_more) %>'
-              title='Learn more about the OPR'>
+          <a accesskey='5' href='/'
+             class='<%= get_active_page_class(:learn_more) %>'
+             title='Learn more about the OPR'>
             Learn more
           </a>
         </li>
+        <% if admin? %>
+          <li>
+            <%= link_to 'Administration', admin_path, :accesskey => '6',
+                        :class => get_active_page_class(:admin),
+                        :title => 'OPR administration' %>
+          </li>
+        <% end %>
       </ul>
     </nav>
     <aside>
-      <!-- include login -->
+      <!-- include login request / user administration -->
     </aside>
   </div>
 </header>
 <div id='page_content'>
-  <%= yield %>
+  <%= yield(:before_content) %>
+
+  <% if content_for?(:sidebar) %>
+    <div id="page_left">
+        <%= yield %>
+    </div>
+
+    <aside id="page_right">
+        <%= yield(:sidebar) %>
+    </aside>
+  <% else %>
+    <%= yield %>
+  <% end %>
+
+  <%= yield(:after_content) %>
 </div>
 </body>
 </html>

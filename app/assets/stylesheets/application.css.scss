@@ -409,28 +409,6 @@ header.page {
         margin: 0.7em 0;
     }
 
-    .teaser {
-        width: 150px;
-        height: 150px;
-        display: inline-block;
-        background-repeat: no-repeat;
-        background-position: 50% 50%;
-        color: white;
-        text-indent: -9999px;
-        position: relative;
-        top: -15px;
-
-        &.add {
-            background-image: url(teaser-add.png);
-        }
-        &.browse {
-            background-image: url(teaser-browse.png);
-        }
-        &.search {
-            background-image: url(teaser-search.png);
-        }
-    }
-
     .float_icon {
         float: left;
         margin: 0 6px 3px;
