@@ -1,0 +1,991 @@
+/*
+ * This is a manifest file that'll automatically include all the stylesheets available in this directory
+ * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
+ * the top of the compiled file, but it's generally better to create a new file per style scope.
+ *= require_self
+ *= require_tree . 
+*/
+
+/*#############################################################################
+::: Vars
+#############################################################################*/
+$page_width: 1000px;
+$page_sidebar_width: 380px;
+
+$lightgreen: #48A659;
+$darkgreen: #3D8E4C;
+$darkgray: #414141;
+
+/*#############################################################################
+::: Mixins
+#############################################################################*/
+
+@mixin top-left-border-radius($radius) {
+    border-top-left-radius: $radius;
+    -moz-border-radius-topleft: $radius;
+    -webkit-border-top-left-radius: $radius;
+}
+
+@mixin top-right-border-radius($radius) {
+    border-top-right-radius: $radius;
+    -moz-border-radius-topright: $radius;
+    -webkit-border-top-right-radius: $radius;
+}
+
+@mixin bottom-right-border-radius($radius) {
+    border-bottom-right-radius: $radius;
+    -moz-border-radius-bottomright: $radius;
+    -webkit-border-bottom-right-radius: $radius;
+}
+
+@mixin bottom-left-border-radius($radius) {
+    border-bottom-left-radius: $radius;
+    -moz-border-radius-bottomleft: $radius;
+    -webkit-border-bottom-left-radius: $radius;
+}
+
+@mixin border-radius($radius) {
+    border-radius: $radius;
+    -moz-border-radius: $radius;
+    -webkit-border-radius: $radius;
+}
+
+@mixin box-shadow($settings) {
+    -moz-box-shadow: $settings;
+    -webkit-box-shadow: $settings;
+    box-shadow: $settings;
+}
+
+@mixin transition($settings) {
+    -webkit-transition: $settings;
+	-moz-transition: $settings;
+	-o-transition: $settings;
+	-webkit-transition: $settings;
+	transition: $settings;
+}
+
+/*#############################################################################
+::: Icons
+#############################################################################*/
+@mixin sprite-base($img, $x, $y, $width, $height) {
+    background-image: $img;
+    background-repeat: no-repeat;
+    background-position: $x $y;
+    width: $width;
+    height: $height;
+}
+.icon-alert-yellow {
+    @include sprite-base(url(alert-yellow.png), 0, 0, 43px, 42px);
+}
+.icon-bug {
+    @include sprite-base(url(bug.png), 0, 0, 46px, 41px);
+}
+.icon-open-source {
+    @include sprite-base(url(open-source.png), 0, 0, 45px, 37px);
+}
+.icon-tag {
+    @include sprite-base(url(tag.png), 0, 0, 43px, 43px);
+}
+.icon-info {
+    @include sprite-base(url(info.png), 0, 0, 42px, 42px);
+}
+.icon-sources {
+    @include sprite-base(url(sources.png), 0, 0, 43px, 43px);
+}
+.icon-file {
+    @include sprite-base(url(file.png), 0, 0, 38px, 43px);
+}
+.icon-html5 {
+    @include sprite-base(url(html5-logo.png), 0, 0, 46px, 64px);
+}
+
+/*#############################################################################
+::: CSS reset; http://meyerweb.com/eric/tools/css/reset/
+#############################################################################*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+
+body {
+    line-height: 1;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+blockquote, q {
+    quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+
+ins {
+    text-decoration: none;
+}
+
+del {
+    text-decoration: line-through;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/*#############################################################################
+::: Commonly used classes
+#############################################################################*/
+.hidden {
+    display: none;
+}
+
+.top {
+    vertical-align: top;
+}
+
+ul.hierarchal li > ul  {
+    margin-left: 20px;
+}
+
+.clearFloat {
+    clear: both;
+    margin: 0;
+}
+
+.italics {
+    font-style: italic;
+}
+
+/*#############################################################################
+::: Page layout
+#############################################################################*/
+body {
+    font-family: sans-serif;
+    font-size: 14px;
+}
+
+header.page {
+    background-image: url(header.png);
+    background-repeat: repeat-x;
+    height: 82px;
+    position: relative;
+    border-bottom: 2px solid $lightgreen;
+
+    .header_indention {
+        width: $page_width;
+        margin: 0 auto;
+        position: relative;
+
+        h1 {
+            img {
+                position: absolute;
+                right: 20px;
+                top: 15px;
+                width: 78px;
+                height: 56px
+            }
+
+            span {
+                display: none;
+            }
+        }
+
+        nav {
+            height: 44px;
+            top: 44px;
+
+            ul {
+                position: absolute;
+                top: 53px;
+                left: 10px;
+
+                $nav-border-radius: 7px;
+                $nav-outter-padding: 20px;
+
+                li {
+                    background-color: white;
+                    float: left;
+                    padding: 10px 8px 0;
+                    font-weight: bold;
+                    color: $darkgray;
+                    height: 21px;
+
+                    $navgreen: #009024;
+
+                    &:first-child {
+                        @include top-left-border-radius($nav-border-radius);
+                        padding-left: $nav-outter-padding;
+                    }
+
+                    &:last-child {
+                        @include top-right-border-radius($nav-border-radius);
+                        padding-right: $nav-outter-padding;
+                    }
+
+                    a {
+                        color: $darkgray;
+                        text-decoration: none;
+
+                        &:active, &.active {
+                            color: $navgreen;
+                        }
+                        &:hover {
+                            color: $navgreen;
+                            text-decoration: underline;
+                        }
+                        &:focus {
+                            color: $navgreen;
+                        }
+                    }
+
+                }
+            }
+        }
+
+        aside {
+            $user-menu-width: 400px;
+            $user-menu-open-id-width: 35px;
+            height: 28px;
+            width: $user-menu-width;
+            position: absolute;
+            top: 0px;
+            right: 140px;
+            background-color: white;
+
+            $header-bar-border-radius: 7px;
+            @include bottom-left-border-radius($header-bar-border-radius);
+            @include bottom-right-border-radius($header-bar-border-radius);
+
+            .openid-login-button {
+                background-color: #efefef;
+                @include bottom-left-border-radius($header-bar-border-radius);
+
+                height: inherit;
+                width: $user-menu-open-id-width;
+                float: left;
+
+                .openid-logo {
+                    width: 25px;
+                    height: 25px;
+                    background-image: url(openid-icon.png);
+                    background-position: 0 0;
+                    margin: 2px 0 0 5px;
+                    display: block;
+                    font-size: 0;
+                    text-indent: -9999px;
+
+                    &:hover {
+                        background-position: 25px 0;
+                    }
+                }
+            }
+
+            .opr-login {
+                @include bottom-right-border-radius($header-bar-border-radius);
+                background-color: white;
+                height: inherit;
+                float: left;
+                width: $user-menu-width - $user-menu-open-id-width;
+                position: relative;
+
+                @include transition(all 0.3s ease-in-out);
+
+                input {
+                    &[type=text], &[type=password] {
+                        width: 130px;
+                        margin: 5px 0 0 10px;
+                    }
+                    &[type=submit] {
+                        margin-left: 8px;
+                    }
+                }
+
+                .additional {
+                    position: absolute;
+                    top: 27px;
+                    left: 0px;
+                    background-color: white;
+                    width: $user-menu-width - $user-menu-open-id-width;
+                    height: 25px;
+                    display: none;
+
+                    @include transition(border-radius 0.3s ease-in-out);
+
+                    label {
+                        position: relative;
+                        top: 5px;
+                        left: 6px;
+
+                        input {
+                            position: relative;
+                            top: 1px;
+                        }
+                    }
+
+                    &.rounded {
+
+                    }
+                }
+
+                &:hover {
+                    @include bottom-right-border-radius(0px);
+
+                    .additional {
+                        @include bottom-right-border-radius($header-bar-border-radius);
+                        @include bottom-left-border-radius($header-bar-border-radius);
+                    }
+                }
+            }
+        }
+    }
+}
+
+#page_content {
+    width: $page_width;
+    margin: 15px auto 0;
+
+    $sidebar_margin: 40px;
+
+    #page_left {
+        width: $page_width - $page_sidebar_width - $sidebar_margin;
+        float: left;
+        margin-right: $sidebar_margin;
+    }
+
+    #page_right {
+        width: $page_sidebar_width;
+        float: left;
+        font-size: 0.9em;
+
+        > div {
+            clear: both;
+            padding-top: 3px;
+
+            &:first-child {
+                padding: 0;
+            }
+        }
+
+        h1 {
+            margin: 0.7em 0 0.5em;
+        }
+    }
+
+    h1 {
+        color: $lightgreen;
+        margin: 0.7em 0 1.2em;
+        font-size: 1.5em;
+    }
+
+    p {
+        line-height: 1.5em;
+        margin: 0.7em 0;
+    }
+
+    .teaser {
+        width: 150px;
+        height: 150px;
+        display: inline-block;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+        color: white;
+        text-indent: -9999px;
+        position: relative;
+        top: -15px;
+
+        &.add {
+            background-image: url(teaser-add.png);
+        }
+        &.browse {
+            background-image: url(teaser-browse.png);
+        }
+        &.search {
+            background-image: url(teaser-search.png);
+        }
+    }
+
+    .float_icon {
+        float: left;
+        margin: 0 6px 3px;
+    }
+}
+
+/*#############################################################################
+::: Form layout
+#############################################################################*/
+span.required {
+    cursor: help;
+    color: red;
+}
+
+fieldset {
+    position: relative;
+}
+
+input, textarea, select {
+    color: #4F4F4F;
+    padding: 1px;
+    border: 1px solid #4F4F4F;
+    margin-top: 0.2em;
+    background-color: #f8f8f8;
+
+    &:hover, &:focus {
+        background-color: white;
+    }
+}
+
+textarea.markdown {
+    background-image: url(markdown-syntax.png);
+    background-repeat: no-repeat;
+    background-position: 100% 100%;
+
+    &:focus {
+        background-image: none;
+    }
+}
+
+input[type=submit] {
+    padding: 3px 5px;
+    background-color: $darkgreen;
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: $lightgreen;
+    }
+}
+
+input.default-layout {
+    width: 230px;
+    position: absolute;
+    left: 140px;
+    top: 4px;
+}
+
+label.default-layout {
+    position: relative;
+    display: block;
+    line-height: 35px;
+
+    &.big {
+        height: 120px;
+    }
+
+    input {
+        &[type=text], &[type=password], &[type=url] {
+            @extend input.default-layout;
+        }
+    }
+    select {
+        @extend input.default-layout;
+    }
+    textarea {
+        position: absolute;
+        height: 100px;
+        width: 500px;
+        left: 139px;
+        top: 3px;
+    }
+
+    .val-constraints {
+        position: absolute;
+        top: 4px;
+        left: 390px;
+    }
+}
+
+fieldset.default-layout {
+    label {
+        @extend label.default-layout;
+    }
+}
+
+.val-constraints {
+    display: none;
+    @include border-radius(5px);
+    border: 1px solid #CD0A0A;
+    background: #B81900 url(error-bg.png);
+    color: white;
+    font-size: 0.9em;
+
+    &.val-show {
+        display: block;
+    }
+
+    &:hover {
+        z-index: 1000;
+    }
+
+    li {
+        list-style: square;
+        margin-left: 25px;
+        padding-right: 8px;
+        display: none;
+        line-height: 1.6em;
+
+        &.val-show {
+            display: list-item;
+        }
+    }
+}
+
+/*#############################################################################
+::: Manage pattern
+#############################################################################*/
+form#manage_pattern {
+    textarea {
+        @extend textarea.markdown;
+    }
+
+    .accordion {
+        $accordion-border-radius: 15px;
+        $accordion-border: 1px solid $darkgray;
+        > h2 {
+            display: block;
+            height: 30px;
+            background-color: $darkgreen;
+            border: $accordion-border;
+            border-top: 0;
+            position: relative;
+
+            background: -moz-linear-gradient(top, $lightgreen 1%, $darkgreen 100%);
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,$lightgreen), color-stop(100%,$darkgreen));
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$lightgreen', endColorstr='$darkgreen',GradientType=0 );
+
+            > a {
+                color: white;
+                font-weight: bold;
+                text-decoration: none;
+                display: block;
+                height: inherit;
+                padding: 8px 0 0 15px;
+            }
+
+            div {
+                width: 20px;
+                height: 20px;
+                background-image:url(arrow_down.png);
+                position: absolute;
+                top: 6px;
+                right: 13px;
+
+                &:hover {
+                    background-position: 20px 0;
+                }
+            }
+
+            &:hover {
+                div {
+                    background-position: 20px 0;
+                }
+            }
+
+            &:first-child {
+                @include top-left-border-radius($accordion-border-radius);
+                @include top-right-border-radius($accordion-border-radius);
+                border-top: $accordion-border;
+            }
+        }
+
+        > div {
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: $accordion-border;
+            border-top: 0;
+            position: relative;
+
+            &:last-child {
+                @include bottom-left-border-radius($accordion-border-radius);
+                @include bottom-right-border-radius($accordion-border-radius);
+            }
+
+            input.navbutton {
+                position: absolute;
+                right: 5px;
+                bottom: 5px;
+
+                &.previous {
+                    right: 82px;
+
+                    &.last {
+                        right: 5px;
+                    }
+                }
+            }
+
+            > p.clearFloat {
+                margin-top: 22px;
+            }
+        }
+
+        .textual-description-step {
+            .input_template_label .val-constraints {
+                left: 450px;
+            }
+
+            .input_template_change {
+                position: absolute;
+                top: 13px;
+                left: 390px;
+            }
+            h3 {
+               font-weight: bold;
+               margin-top: 25px
+            }
+
+            div.description {
+                position: relative;
+
+                > div {
+                    position: relative;
+                }
+
+                textarea {
+                    width: 600px;
+                    font-size: 14px;
+                }
+
+                .markItUpPreviewFrame {
+                    position: absolute;
+                    top: 17px;
+                    width: 350px;
+                    right: 0px;
+                    height: 262px;
+                    border: 1px solid $darkgray;
+                    background-image: url(preview-tile.png);
+                }
+
+                .val-constraints {
+                    top: 17px;
+                    position: absolute;
+                    right: 380px;
+                }
+            }
+        }
+
+        .forces_consequences {
+            div.entries {
+                fieldset {
+                    border-top: 1px dashed #bebebe;
+                    padding: 10px 0 5px;
+
+                    .ui-slider {
+                        position: absolute;
+                        left: 380px;
+                        width: 230px;
+                        top: 55px;
+
+                        .ui-widget-header {
+                            background: url(impact-gradient-230.png);
+                        }
+                    }
+
+                    &:first-child {
+                        border: 0;
+                        padding-top: 0;
+
+                        .ui-slider {
+                            top: 46px
+                        }
+                    }
+                }
+            }
+
+            #input_add_driver {
+                position: absolute;
+                bottom: 5px;
+                left: 5px;
+            }
+        }
+
+        .relationships {
+            @extend .forces_consequences;
+
+            #input_add_relationship {
+                position: absolute;
+                bottom: 5px;
+                left: 5px;
+            }
+        }
+
+        .categories_tags {
+            > .category_out {
+                float: left;
+                width: 480px;
+
+                ul li > ul {
+                    margin-left: 13px;
+                }
+            }
+
+            .content_tags {
+                float: left;
+                width: 480px;
+
+                input[type=text] {
+                    position: relative;
+                    left: 15px;
+                    width: 200px;
+                }
+
+                input[type=submit] {
+                    position: relative;
+                    left: 20px;
+                }
+
+                ul {
+                    max-height: 150px;
+                    overflow-y: auto;
+
+                     li {
+                        float: left;
+                        margin-right: 25px;
+                        white-space: nowrap;
+                        line-height: 1.5em;
+                        position: relative;
+
+                        a {
+                            font-size: 0;
+                            text-indent: -9999px;
+                            width: 10px;
+                            height: 10px;
+                            position: absolute;
+                            background-image: url(remove-10x10.png);
+                            background-position: -10px 0;
+                            background-repeat: no-repeat;
+                            margin: 2px 0 0 3px;
+                            cursor: pointer;
+                            top: 2px;
+
+                            &:hover {
+                                background-position: 0 0;
+                            }
+                        }
+                    }
+                }
+            }
+
+            p:last-child {
+                padding-top: 10px;
+            }
+        }
+    }
+
+    p.accordion-manage-links {
+        text-align: right;
+
+        a {
+            margin-left: 8px;
+        }
+    }
+
+    > div:last-child {
+        input {
+            float: right;
+        }
+    }
+}
+/*#############################################################################
+::: Pattern details
+#############################################################################*/
+#pattern_details {
+    #page_left {
+        text-align: justify;
+
+        > span {
+            color: $darkgray;
+            font-style: italic;
+            position: relative;
+            top: -18px;
+            font-size: 0.9em;
+        }
+
+        .toc {
+            float: right;
+            padding: 7px 10px 7px 35px;
+            margin: 10px 0px 0px 20px;
+            font-size: 0.9em;
+            background-color: #EFEFEF;
+            width: auto;
+            border: 1px solid $darkgray;
+            @include border-radius(15px);
+            line-height: 1.7em;
+
+            > h2 {
+                font-weight: bold;
+            }
+
+            li {
+                list-style-type: decimal;
+            }
+        }
+
+        .description-out {
+            > h2 {
+                font-size: 1.1em;
+                font-weight: bold;
+
+                a {
+                    width: 15px;
+                    height: 15px;
+                    position: relative;
+                    background-image: url(arrow_up.png);
+                    text-indent: -9999px;
+                    font-size: 0px;
+                    display: inline-block;
+                    top: 2px;
+                    left: 10px;
+
+                    &:hover {
+                        background-position: 15px 0;
+                    }
+                }
+            }
+
+            ul {
+                list-style-type: disc;
+                padding: 10px 0 10px 25px;
+            }
+
+            ol {
+                list-style-type: decimal;
+            }
+
+            em {
+                font-style: italic;
+            }
+
+            strong {
+                font-weight: bold;
+            }
+        }
+    }
+    #page_right {
+        .relationships {
+            .relationship {
+                > span > span {
+                    font-style: italic;
+                    color: $darkgreen;
+                }
+                > div {
+                    margin-left: 15px;
+                }
+
+                border-top: 1px dashed $darkgray;
+                padding-top: 8px;
+
+                &:first-child {
+                    border: 0;
+                    padding-top: 0;
+                }
+            }
+        }
+
+        .driver {
+            > div {
+                clear: both;
+                padding-top: 10px;
+
+                &:first-child {
+                    padding-top: 0px;
+                }
+            }
+
+            .smaller {
+                color: $darkgray;
+                font-style: italic;
+            }
+        }
+    }
+}
+
+.impact-indicator {
+    height: 24px;
+    width: 58px;
+
+    background-image: url(impact-indicator-grayscale.png);
+    background-repeat: no-repeat;
+
+    div {
+        height: inherit;
+        background-image: url(impact-indicator.png);
+        background-repeat: no-repeat;
+
+        @include transition(all 0.5s ease-in-out);
+
+        opacity: 0.5;
+
+        &.level-1 {
+            width: 4px;
+        }
+
+        &.level-2 {
+            width: 10px;
+        }
+
+        &.level-3 {
+            width: 16px;
+        }
+
+        &.level-4 {
+            width: 22px;
+        }
+
+        &.level-5 {
+            width: 28px;
+        }
+
+        &.level-6 {
+            width: 34px;
+        }
+
+        &.level-7 {
+            width: 40px;
+        }
+
+        &.level-8 {
+            width: 46px;
+        }
+
+        &.level-9 {
+            width: 52px;
+        }
+
+        &.level-10 {
+            width: 58px;
+        }
+    }
+
+    &:hover div {
+        opacity: 1;
+    }
+}
