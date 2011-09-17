@@ -373,6 +373,17 @@ header.page {
 
     $sidebar_margin: 40px;
 
+    .notice {
+        @include border-radius(5px);
+        border: 1px solid #FED22F;
+        background: #FFF0A5;
+        padding: 10px 10px 10px 40px;
+        color: #363636;
+        background-image: url(info-small.png);
+        background-repeat: no-repeat;
+        background-position: 1% 50%;
+    }
+
     #page_left {
         width: $page_width - $page_sidebar_width - $sidebar_margin;
         float: left;
@@ -507,6 +518,7 @@ label.default-layout {
         color: white;
         font-size: 0.9em;
         max-height: 20px;
+        max-width: 450px;
         @include transition(max-height 0.5s ease-in-out);
 
         &:hover {
