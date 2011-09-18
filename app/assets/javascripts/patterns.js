@@ -22,6 +22,15 @@ opr.vars = {
 $(function() {
     $(".accordion > div").not(":first").hide();
 
+    var converter1 = Markdown.getSanitizingConverter();
+    var editor1 = new Markdown.Editor(converter1);
+    editor1.run();
+
+    $('.togglePreviewSize').click(function() {
+        $(this).siblings('#wmd-input, .preview').toggleClass('bigger');
+        return false;
+    });
+
     var hideAll = function(except) {
         if (except == undefined) {
             $(".accordion > div").slideUp();

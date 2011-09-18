@@ -9,7 +9,7 @@
 /*#############################################################################
 ::: Vars
 #############################################################################*/
-$page_width: 960px;
+$page_width: 1000px;
 $page_sidebar_width: 380px;
 
 $lightgreen: #48A659;
@@ -429,6 +429,48 @@ header.page {
 .fieldTemplates {
     display: none;
 }
+
+.preview, #page_content .preview {
+    h1, h2, h3 {
+        color: black;
+        font-weight: bold;
+    }
+
+    h1 {
+        font-size: 1.3em;
+    }
+
+    h2 {
+        font-size: 1.2em;
+    }
+
+    strong {
+        font-weight: bold;
+    }
+
+    em {
+        font-style: italic;
+    }
+
+    li {
+        margin-left: 30px;
+        line-height: 1.4em;
+    }
+
+    ul {
+        list-style: disc;
+    }
+
+    ol {
+        list-style: decimal;
+    }
+
+    blockquote {
+        margin-left: 10px;
+        background-color: #eee;
+    }
+}
+
 /*#############################################################################
 ::: Form layout
 #############################################################################*/
@@ -657,46 +699,38 @@ form#manage_pattern {
         }
 
         .textual-description-step {
-            .input_template_label .val-constraints {
-                left: 450px;
-            }
-
-            .input_template_change {
+            .togglePreviewSize {
                 position: absolute;
-                top: 13px;
-                left: 390px;
-            }
-            h3 {
-               font-weight: bold;
-               margin-top: 25px
+                top: 10px;
+                right: 10px;
             }
 
-            div.description {
-                position: relative;
+            textarea {
+                width: 600px;
+                font-size: 14px;
+                height: 250px;
+                margin-bottom: 10px;
 
-                > div {
-                    position: relative;
+                &.bigger {
+                    width: 973px;
                 }
+            }
 
-                textarea {
-                    width: 600px;
-                    font-size: 14px;
-                }
+            .preview {
+                position: absolute;
+                top: 47px;
+                width: 350px;
+                right: 10px;
+                height: 242px;
+                border: 1px solid $darkgray;
+                background-image: url(preview-tile.png);
+                padding: 5px;
+                margin-bottom: 10px;
 
-                .markItUpPreviewFrame {
-                    position: absolute;
-                    top: 17px;
-                    width: 350px;
-                    right: 0px;
-                    height: 262px;
-                    border: 1px solid $darkgray;
-                    background-image: url(preview-tile.png);
-                }
-
-                .val-constraints {
-                    top: 17px;
-                    position: absolute;
-                    right: 380px;
+                &.bigger {
+                    position: static;
+                    width: auto;
+                    margin-bottom: 30px;
                 }
             }
         }
