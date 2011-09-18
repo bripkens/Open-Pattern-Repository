@@ -17,8 +17,7 @@
   <fieldset class="default-layout">
     <label>
       Name <%= render 'layouts/form_required_marker' %> :
-      <!-- TODO autofocus -->
-      <%= f.text_field :name %>
+      <%= f.text_field :name, :autofocus => 'autofocus' %>
       <%= render 'layouts/form_field_errors', :errors => @pattern.errors[:name] %>
     </label>
 
@@ -45,39 +44,14 @@
   </div>
 </h2>
 <div class="textual-description-step">
-  <!--<label for="id_template" class="input_template_label default-layout">-->
-    <!--{{ form.template.label }}-->
-    <!--{% with form.template as field %}-->
-    <!--{% include "patterns/required.html" %}-->
-    <!--{% endwith %}:-->
-    <!--{{ form.template }}-->
-  <!--</label>-->
-
-  <!--<input id="change_template"-->
-         <!--type="submit" value="Change" class="input_template_change"/>-->
-
-
   <div id='wmd-button-bar'></div>
-  <%= f.text_area :description, :class => 'pageDownEditor', :id => 'wmd-input' %>
-  <input type="submit" value="Toggle preview size" class='togglePreviewSize'/>
+  <%= f.text_area :description, :class => 'markdownEditor', :id => 'wmd-input' %>
   <div id='wmd-preview' class='preview'></div>
-
-  <!--<div class="description-box">-->
-    <!--{% for field in templateRelated %}-->
-    <!--<div class="description">-->
-      <!--<h3>{{ field.label }}-->
-        <!--{% include "patterns/required.html" %}-->
-      <!--</h3>-->
-
-      <!--{{ field }}-->
-    <!--</div>-->
-    <!--{% endfor %}-->
-  <!--</div>-->
-
+  <%= render 'layouts/form_field_errors', :errors => @pattern.errors[:description] %>
 
   <input type="submit" value="Previous step" class="navbutton previous"/>
   <input type="submit" value="Next step" class="navbutton next"/>
-
+  <input type="submit" value="Toggle preview size" class='togglePreviewSize'/>
   <p class="clearFloat"></p>
 </div>
 
