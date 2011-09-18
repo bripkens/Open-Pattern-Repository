@@ -1,7 +1,7 @@
 <% if errors.any? %>
-  <ul class='errors'>
+  <ul class='errors <%= 'multipleErrors' if errors.length > 1 %>'>
     <% if errors.length > 1 %>
-      <li class='additionalErrorsNote'>Hover to show all errors</li>
+      <li class='keep'>Hover to show all errors</li>
     <% end %>
     <% errors.each do |msg| %>
       <li><%= msg %></li>

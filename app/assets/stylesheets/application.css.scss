@@ -438,14 +438,21 @@ header.page {
 
     h1 {
         font-size: 1.3em;
+        margin: 1em 0;
     }
 
     h2 {
         font-size: 1.2em;
+        margin: 0.8em 0;
+    }
+
+    h3 {
+        margin: 0.5em 0;
     }
 
     strong {
         font-weight: bold;
+
     }
 
     em {
@@ -554,27 +561,43 @@ label.default-layout {
         position: absolute;
         top: 4px;
         left: 390px;
-        @include border-radius(5px);
-        border: 1px solid #CD0A0A;
-        background: #B81900 url(error-bg.png);
-        color: white;
-        font-size: 0.9em;
-        max-height: 20px;
-        max-width: 450px;
-        @include transition(max-height 0.5s ease-in-out);
+        @extend .single-error;
+    }
+}
 
+.single-error {
+    @include border-radius(5px);
+    border: 1px solid #CD0A0A;
+    background: #B81900 url(error-bg.png);
+    color: white;
+    font-size: 0.9em;
+    max-width: 450px;
+
+    &:hover {
+        z-index: 1000;
+    }
+
+    &.multipleErrors {
         &:hover {
-            z-index: 1000;
-            // huge size because setting it to 'none' would break the css animation
-            max-height: 150px;
+            li {
+                display: list-item;
+            }
         }
 
         li {
-            list-style: square;
-            margin-left: 25px;
-            padding-right: 8px;
-            line-height: 1.6em;
+            display: none;
+
+            &.keep {
+                display: list-item;
+            }
         }
+    }
+
+    li {
+        list-style: square;
+        margin-left: 25px;
+        padding-right: 8px;
+        line-height: 1.6em;
     }
 }
 
@@ -716,6 +739,13 @@ form#manage_pattern {
                 }
             }
 
+            .textualErrors ul {
+                position: absolute;
+                top: 17px;
+                left: 430px;
+                @extend .single-error;
+            }
+
             .preview {
                 position: absolute;
                 top: 47px;
@@ -726,6 +756,7 @@ form#manage_pattern {
                 background-image: url(preview-tile.png);
                 padding: 5px;
                 margin-bottom: 10px;
+                overflow: auto;
 
                 &.bigger {
                     position: static;

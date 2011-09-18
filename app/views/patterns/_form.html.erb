@@ -47,7 +47,9 @@
   <div id='wmd-button-bar'></div>
   <%= f.text_area :description, :class => 'markdownEditor', :id => 'wmd-input' %>
   <div id='wmd-preview' class='preview'></div>
-  <%= render 'layouts/form_field_errors', :errors => @pattern.errors[:description] %>
+  <div class='textualErrors'>
+    <%= render 'layouts/form_field_errors', :errors => @pattern.errors[:description] %>
+  </div>
 
   <input type="submit" value="Previous step" class="navbutton previous"/>
   <input type="submit" value="Next step" class="navbutton next"/>
