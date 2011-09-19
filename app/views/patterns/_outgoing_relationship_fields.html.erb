@@ -11,7 +11,9 @@
 
   <label class="big">
     <span class="top">Description</span>
-    <%= f.text_area :description %>
+    <div class='markdownEditor-buttons'></div>
+    <%= f.text_area :description, :class => 'markdownEditor' %>
+    <div class='preview markdownEditor-preview'></div>
   </label>
   <%= link_to_remove_fields 'remove', f %>
 </fieldset>

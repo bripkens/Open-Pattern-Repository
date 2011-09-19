@@ -22,14 +22,17 @@ opr.vars = {
 $(function() {
     $(".accordion > div").not(":first").hide();
 
-    var converter1 = Markdown.getSanitizingConverter();
-    var editor1 = new Markdown.Editor(converter1);
-    editor1.run();
 
     $('.togglePreviewSize').click(function() {
-        $(this).siblings('#wmd-input, .preview').toggleClass('bigger');
+        $(this).siblings('.markdownEditor, .preview').toggleClass('bigger');
         return false;
     });
+
+    opr.markdown.enable();
+    // click listener should execute latest
+    // maybe do this in a addField hook?
+    // TODO
+    $('#input_add_relationship').click(opr.markdown.enable);
 
     var hideAll = function(except) {
         if (except == undefined) {
@@ -109,6 +112,33 @@ opr.accordion = {
 
         if (!anythingOpen && (openAtLeastOne === undefined || openAtLeastOne === true)) {
             accordion.children("div:first").show();
+        }
+    }
+}
+opr.markdown = {
+    idCounter : 0
+};
+opr.markdown.enable = function() {
+    var buttons = $('.markdownEditor-buttons');
+    var editors = $('.markdownEditor');
+    var previews = $('.markdownEditor-preview');
+
+    console.log('Found: ', buttons.length)
+
+    for (var i = 0; i < buttons.length; i++) {
+        var button = $(buttons[i]);
+        // check for visibility because of the field templates which are
+        // located at the end of the file
+        // TODO check for button visibility
+        if (button.data('wmdActivated') !== true) {
+            button.attr('id', 'wmd-button-bar' + opr.markdown.idCounter);
+            button.data('wmdActivated', true);
+            $(editors[i]).attr('id', 'wmd-input' + opr.markdown.idCounter);
+            $(previews[i]).attr('id', 'wmd-preview' + opr.markdown.idCounter);
+
+            var converter = Markdown.getSanitizingConverter();
+            new Markdown.Editor(converter, opr.markdown.idCounter.toString()).run();
+            opr.markdown.idCounter++;
         }
     }
 }

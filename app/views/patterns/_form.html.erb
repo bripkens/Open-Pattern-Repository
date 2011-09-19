@@ -44,9 +44,9 @@
   </div>
 </h2>
 <div class="textual-description-step">
-  <div id='wmd-button-bar'></div>
-  <%= f.text_area :description, :class => 'markdownEditor', :id => 'wmd-input' %>
-  <div id='wmd-preview' class='preview'></div>
+  <div class='markdownEditor-buttons'></div>
+  <%= f.text_area :description, :class => 'markdownEditor' %>
+  <div class='preview markdownEditor-preview'></div>
   <div class='textualErrors'>
     <%= render 'layouts/form_field_errors', :errors => @pattern.errors[:description] %>
   </div>

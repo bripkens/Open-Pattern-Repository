@@ -749,14 +749,7 @@ form#manage_pattern {
             .preview {
                 position: absolute;
                 top: 47px;
-                width: 350px;
                 right: 10px;
-                height: 242px;
-                border: 1px solid $darkgray;
-                background-image: url(preview-tile.png);
-                padding: 5px;
-                margin-bottom: 10px;
-                overflow: auto;
 
                 &.bigger {
                     position: static;
@@ -764,6 +757,16 @@ form#manage_pattern {
                     margin-bottom: 30px;
                 }
             }
+        }
+
+        .preview {
+            width: 350px;
+            height: 242px;
+            border: 1px solid $darkgray;
+            background-image: url(preview-tile.png);
+            padding: 5px;
+            margin-bottom: 10px;
+            overflow: auto;
         }
 
         .forces_consequences {
@@ -808,6 +811,14 @@ form#manage_pattern {
                 position: absolute;
                 bottom: 5px;
                 left: 5px;
+            }
+
+            .preview {
+                position: absolute;
+                right: 3px;
+                top: 5px;
+                width: 300px;
+                height: 92px;
             }
         }
 
