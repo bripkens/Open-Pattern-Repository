@@ -17,6 +17,8 @@ group :assets do
   gem 'uglifier'
 end
 
+gem "pg" # just for heroku
+
 gem 'jquery-rails'
 
 gem 'acts-as-taggable-on', '~>2.1.0'
