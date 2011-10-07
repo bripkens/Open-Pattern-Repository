@@ -3,6 +3,12 @@ Opr::Application.routes.draw do
 
   root :to => 'home#index'
 
+  scope '/suggest' do
+    scope '/tag' do
+      match '/' => 'patterns#suggest_tag'
+    end
+  end
+
   scope '/admin' do
     match '/' => 'admin#index', :as => :admin
     resources :relationship_types

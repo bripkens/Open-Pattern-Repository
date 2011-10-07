@@ -42,5 +42,16 @@
   </ul>
 </p>
 
+<p>
+  <b>Tags</b>
+  <ul>
+    <% @pattern.tags.each do |tag| %>
+    <li>
+      <%= tag.name %>
+    </li>
+    <% end %>
+  </ul>
+</p>
+
 <%= link_to 'Edit', edit_pattern_path(@pattern) %> |
 <%= link_to 'Back', patterns_path %>

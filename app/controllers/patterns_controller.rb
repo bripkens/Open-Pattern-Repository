@@ -40,6 +40,11 @@ class PatternsController < ApplicationController
     load_necessary_create_update_fields
   end
 
+  def suggest_tag
+    beginning = params[:start]
+    render :json => Pattern.tag_counts_on(:tags).named_like(beginning)
+  end
+
   # POST /patterns
   # POST /patterns.json
   def create

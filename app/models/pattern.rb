@@ -7,6 +7,8 @@ class Pattern < ActiveRecord::Base
   accepts_nested_attributes_for :outgoing_relationships,
                                 :allow_destroy => true
 
+  acts_as_taggable
+
   def to_param
     slug
   end

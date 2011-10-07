@@ -95,9 +95,8 @@
   </div>
 </h2>
 <div class="categories_tags">
-  <div class="hidden">
-    {{ form.tags }}
-  </div>
+  <%= f.text_field :tag_list, :class => 'hidden' %>
+  <%= render 'layouts/form_field_errors', :errors => @pattern.errors[:tag_list] %>
 
   <div class="content_tags">
     <fieldset>

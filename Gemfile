@@ -19,6 +19,8 @@ end
 
 gem 'jquery-rails'
 
+gem 'acts-as-taggable-on', '~>2.1.0'
+
 # Use unicorn as the web server
 # gem 'unicorn'
 

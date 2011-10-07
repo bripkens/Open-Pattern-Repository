@@ -8,6 +8,11 @@
 //= require jquery_ujs
 //= require_tree .
 
+var addFieldsListener = [];
+var addFieldAddListener = function(callback) {
+    addFieldsListener.push(callback);
+};
+
 $(function() {
     var templates = {};
     $('.fieldTemplates div').each(function() {
@@ -28,6 +33,11 @@ $(function() {
         var regexp = new RegExp('new_' + name, 'g');
         $(this).before(template.replace(regexp, new_id));
         $(this).prev().find(":input:visible:first").focus();
+
+        for(var i = 0; i < addFieldsListener.length; i++) {
+            addFieldsListener[i](name);
+        }
+
         return false;
     });
 });

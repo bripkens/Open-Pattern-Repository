@@ -8,8 +8,7 @@ var opr = opr || {};
 opr.settings = {
     defaultCacheExpiration : 60000, // milli seconds
     urls : {
-        suggestTag : "/suggest/tag/{0}",
-        retrieveTemplate : "/api/json/templates/{0}"
+        suggestTag : "/suggest/tag?start={0}"
     }
 }
 opr.vars = {
@@ -32,7 +31,7 @@ $(function() {
     // click listener should execute latest
     // maybe do this in a addField hook?
     // TODO
-    $('#input_add_relationship').click(opr.markdown.enable);
+    addFieldAddListener(opr.markdown.enable);
 
     var hideAll = function(except) {
         if (except == undefined) {
@@ -119,11 +118,11 @@ opr.markdown = {
     idCounter : 0
 };
 opr.markdown.enable = function() {
-    var buttons = $('.markdownEditor-buttons');
-    var editors = $('.markdownEditor');
-    var previews = $('.markdownEditor-preview');
+    var buttons = $('#page_content .markdownEditor-buttons');
+    var editors = $('#page_content  .markdownEditor');
+    var previews = $('#page_content .markdownEditor-preview');
 
-    console.log('Found: ', buttons.length)
+    
 
     for (var i = 0; i < buttons.length; i++) {
         var button = $(buttons[i]);
@@ -157,13 +156,15 @@ $(function() {
 
             opr.cachedJSONRequest(url, {}, function(data) {
                 // remove tags that have already been added
+                var tags = [];
                 for (var i = data.length - 1; i >= 0; i--) {
-                    if (opr.managePattern.containsTag(data[i])) {
-                        data.splice(i, 1);
+                    var suggestedTag = data[i].name;
+                    if (!opr.managePattern.containsTag(suggestedTag)) {
+                        tags.push(suggestedTag);
                     }
                 }
 
-                response(data);
+                response(tags);
             });
         }
     });
@@ -178,11 +179,11 @@ $(function() {
     });
 
     // reload tags after server side validation error
-    var tagOut = $("#id_tags");
+    var tagOut = $("#pattern_tag_list");
     if (tagOut.length == 0) {
         return;
     }
-    var allTags = tagOut.val().trim().split(' ');
+    var allTags = tagOut.val().trim().split(',');
 
     for (var i = 0; i < allTags.length; i++) {
         if (allTags[i].trim().length != 0) {
@@ -194,11 +195,11 @@ $(function() {
 opr.managePattern.addTag = function() {
     // retrieve the value and reset the input field
     var input = $("#input_tag");
-    var newTags = input.val().trim().split(" ");
+    var newTags = input.val().trim().split(",");
     input.val("");
 
-    var tagOut = $("#id_tags");
-    var addedTags = tagOut.val().split(' ');
+    var tagOut = $("#pattern_tag_list");
+    var addedTags = tagOut.val().split(',');
     var tagDuplication = false;
     for (var i = 0; i < newTags.length; i++) {
         var tagComparable = newTags[i].toLowerCase();
@@ -222,7 +223,7 @@ opr.managePattern.addTag = function() {
         }
     }
 
-    tagOut.val(addedTags.join(' ').trim());
+    tagOut.val(addedTags.join(',').trim());
 
     return false;
 }
@@ -246,8 +247,8 @@ opr.managePattern.addTagToList = function(tag) {
 }
 
 opr.managePattern.removeTagFromInput = function(tag) {
-    var tagOut = $("#id_tags");
-    var allTags = tagOut.val().split(' ');
+    var tagOut = $("#pattern_tag_list");
+    var allTags = tagOut.val().split(',');
 
     tag = tag.toLowerCase();
 
@@ -257,12 +258,12 @@ opr.managePattern.removeTagFromInput = function(tag) {
         }
     }
 
-    tagOut.val(allTags.join(' ').trim());
+    tagOut.val(allTags.join(',').trim());
 }
 
 opr.managePattern.containsTag = function(tag) {
-    var tagOut = $("#id_tags");
-    var allTags = tagOut.val().split(' ');
+    var tagOut = $("#pattern_tag_list");
+    var allTags = tagOut.val().split(',');
 
     tag = tag.toLowerCase();
 
@@ -275,118 +276,6 @@ opr.managePattern.containsTag = function(tag) {
     return false;
 }
 
-/*#############################################################################
- ::: Manage pattern select / change template
- ############################################################################*/
-$(function() {
-    $("#change_template").click(opr.managePattern.changeTemplate);
-
-    if (typeof mySettings != "undefined") {
-        $(".textual-description-step textarea").markItUp(mySettings);
-    }
-});
-
-opr.managePattern.changeTemplate = function() {
-    var selectedValue = $("#id_template option:selected").val();
-
-    if (selectedValue.trim().length == 0) {
-        // TODO show user friendly error message
-        alert("Please select something.");
-        return false;
-    }
-
-    var descriptionBox = $(this).siblings(".description-box");
-
-    var url = opr.settings.urls.retrieveTemplate.replace("{0}", selectedValue);
-    opr.cachedJSONRequest(url, {}, function(data) {
-        // TODO error handling (template retrieval failed)
-
-        // remove previous text input components
-        descriptionBox.find(".description").remove();
-
-        // sort the components
-        data.components.sort(function(a, b) {
-            return a.sort_order - b.sort_order;
-        });
-
-        for (var i = 0; i < data.components.length; i++) {
-            var component = data.components[i];
-
-            var innerBox = document.createElement("div");
-            innerBox.className = "description";
-
-            var heading = document.createElement("h3");
-            $(heading).text(component.name);
-            innerBox.appendChild(heading);
-
-            if (component.mandatory) {
-                var requiredNotifier = document.createElement("span");
-                requiredNotifier.textContent = " *";
-                requiredNotifier.className = "required";
-                requiredNotifier.title = "required";
-                heading.appendChild(requiredNotifier);
-            }
-
-            var textarea = document.createElement("textarea");
-            textarea.rows = 15;
-            textarea.cols = 75;
-            textarea.name = "description-" + component.id;
-            innerBox.appendChild(textarea);
-
-            descriptionBox.append(innerBox);
-
-            $(textarea).markItUp(mySettings);
-        }
-    });
-
-    return false;
-}
-
-/*#############################################################################
- ::: Driver / Impact slider
- ############################################################################*/
-$(function() {
-    var addslider = function(select) {
-        var slider = $("<div></div>").insertAfter($(select).parent()).slider({
-            min: 1,
-            max: 10,
-            range: "min",
-            animate : true,
-            value : select.selectedIndex + 1,
-            slide: function(event, ui) {
-                select.selectedIndex = ui.value -1;
-            }
-        });
-        $(select).change(function() {
-            slider.slider("value", select.selectedIndex + 1);
-        });
-    }
-
-    $("div.forces_consequences > div.entries > " +
-            "fieldset").each(function() {
-
-        addslider($(this).find("label:eq(1) > select").get(0));
-    });
-
-    $("#input_add_driver").click(function() {
-        var lastFieldset = $(".forces_consequences fieldset:last");
-        var newFieldset = opr.cloneFormSet(lastFieldset, 'driver');
-
-        var select = newFieldset.find("label:eq(1) > select").get(0);
-
-        select.selectedIndex = 4;
-
-        addslider(select);
-
-        $(select).parent().next(".ui-slider").next(".ui-slider").remove();
-
-        newFieldset.find(".val-show").removeClass("val-show");
-
-        newFieldset.find(":input:visible:first").focus();
-
-        return false;
-    });
-});
 
 /*#############################################################################
  ::: JSON async request caching

@@ -538,7 +538,7 @@ label.default-layout {
     line-height: 35px;
 
     &.big {
-        height: 120px;
+        height: 145px;
     }
 
     input {
@@ -819,6 +819,22 @@ form#manage_pattern {
                 top: 5px;
                 width: 300px;
                 height: 92px;
+            }
+
+            label.smallMarkdown {
+                .markdownEditor-buttons {
+                    position: absolute;
+                    top: 0px;
+                    left: 130px;
+                }
+
+                .markdownEditor {
+                    top: 40px;
+                }
+
+                .markdownEditor-preview {
+                    top: 40px;
+                }
             }
         }
 

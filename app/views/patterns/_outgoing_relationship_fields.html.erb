@@ -9,7 +9,7 @@
     <%= f.collection_select :relationship_type_id, @relationship_types, :id, :name, :prompt => true %><br />
   </label>
 
-  <label class="big">
+  <label class="big smallMarkdown">
     <span class="top">Description</span>
     <div class='markdownEditor-buttons'></div>
     <%= f.text_area :description, :class => 'markdownEditor' %>
