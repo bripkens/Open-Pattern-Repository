@@ -378,6 +378,7 @@ header.page {
         border: 1px solid #FED22F;
         background: #FFF0A5;
         padding: 10px 10px 10px 40px;
+        margin: 0 0 15px;
         color: #363636;
         background-image: url(info-small.png);
         background-repeat: no-repeat;
@@ -394,15 +395,6 @@ header.page {
         width: $page_sidebar_width;
         float: left;
         font-size: 0.9em;
-
-        > div {
-            clear: both;
-            padding-top: 3px;
-
-            &:first-child {
-                padding: 0;
-            }
-        }
 
         h1 {
             margin: 0.7em 0 0.5em;
@@ -918,7 +910,7 @@ form#manage_pattern {
 /*#############################################################################
 ::: Pattern details
 #############################################################################*/
-#pattern_details {
+/*#pattern_details {
     #page_left {
         text-align: justify;
 
@@ -1088,5 +1080,55 @@ form#manage_pattern {
 
     &:hover div {
         opacity: 1;
+    }
+}*/
+#page_right {
+
+    .box {
+        @include border-radius(5px);
+        border: 1px solid #ddd;
+        background: #f5f5f5;
+        padding: 10px;
+        margin: 0 0 15px;
+        line-height: 1.3em;
+
+        h2 {
+            font-size: 1.2em;
+            text-transform: uppercase;
+            font-weight: bold;
+            margin: 0 0 10px;
+            color: $lightgreen;
+            line-height: 20px;
+
+            &.tag, &.related, &.file {
+                padding-left: 30px;
+                background-position: 0 50%;
+                background-repeat: no-repeat;
+            }
+
+            &.tag {
+                background-image: url(tag.png);
+            }
+
+            &.related {
+                background-image: url(related.png);
+            }
+
+            &.file {
+                background-image: url(file.png);
+            }
+        }
+
+        ul, ol {
+            padding: 0 0 0 20px;
+        }
+
+        ul {
+            list-style: disc;
+        }
+
+        ol {
+            list-style: decimal;
+        }
     }
 }

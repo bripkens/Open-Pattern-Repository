@@ -42,16 +42,66 @@
   </ul>
 </p>
 
-<p>
-  <b>Tags</b>
-  <ul>
-    <% @pattern.tags.each do |tag| %>
-    <li>
-      <%= tag.name %>
-    </li>
+<% content_for :sidebar do %>
+    <% if editor? %>
+        <div class='box'>
+          <h2>Editing</h2>
+          <ul>
+            <li><%= link_to 'Edit', edit_pattern_path(@pattern) %></li>
+            <li><%= link_to 'Destroy', @pattern, :confirm => 'Are you sure?', :method => :delete %></li>
+          </ul>
+        </div>
     <% end %>
-  </ul>
-</p>
 
-<%= link_to 'Edit', edit_pattern_path(@pattern) %> |
-<%= link_to 'Back', patterns_path %>
+    <div class='box'>
+      <h2>Table of contents</h2>
+      <ol>
+        <li>Problem
+          <ol>
+            <li>Intro</li>
+            <li>Details</li>
+          </ol>
+        </li>
+        <li>Solution</li>
+        <li>Rationale</li>
+        <li>Discussion</li>
+      </ol>
+    </div>
+
+    <div class='box'>
+      <h2 class='file'>Related images &amp; files</h2>
+      <ul>
+        <li>
+          Model-View-Presenter
+        </li>
+      </ul>
+    </div>
+
+    <div class='box'>
+      <h2>Sources</h2>
+      <ul>
+        <li><a href="#">Wikipedia</a></li>
+        <li><a href="#">Martin Fowler - PoEAA</a></li>
+      </ul>
+    </div>
+
+    <div class='box'>
+      <h2 class='tag'>Tags</h2>
+      <ul>
+        <% @pattern.tags.each do |tag| %>
+        <li>
+          <%= tag.name %>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+
+    <div class='box'>
+      <h2 class='related'>Similar patterns</h2>
+      <ul>
+        <li>
+          Model-View-Presenter
+        </li>
+      </ul>
+    </div>
+<% end %>
