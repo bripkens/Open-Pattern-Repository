@@ -17,7 +17,10 @@ group :assets do
   gem 'uglifier'
 end
 
-gem "pg" # just for heroku
+group :production do
+  # gems specifically for Heroku go here
+  gem "pg"
+end
 
 gem 'jquery-rails'
 
